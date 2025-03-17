@@ -36,7 +36,8 @@ const AdjectivePage = () => {
                     activity,
                     adjective1,
                     adjective2
-                }
+                },
+                withCredentials: true
             });
 
             const songData = response.data;
