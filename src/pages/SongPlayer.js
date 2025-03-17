@@ -9,12 +9,13 @@ const SongPlayer = () => {
     const sampleSongUrl = "https://oceaan-pendharkar.com/isa-be/ISA_BE/songs/song_002.wav";
 
     const {songUrl, songId} = location.state || {};
+    console.log("songURL: " + songUrl)
 
     if (!songUrl) {
         return (
             <div className="song-container">
                 <h2>No Song Found</h2>
-                <p>Please go back and select adjectives to generate a song.</p>
+                <p>Please go back and try again</p>
                 <button className="btn btn-secondary mt-3" onClick={() => navigate('/')}>
                     Back to Home
                 </button>

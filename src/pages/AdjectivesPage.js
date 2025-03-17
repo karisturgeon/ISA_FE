@@ -23,6 +23,9 @@ const AdjectivePage = () => {
     };
 
     const handleSubmit = async () => {
+        if (!activity) {
+            alert("Please go back and select an activity");
+        }
         if (selectedAdjectives.length !== 2) {
             alert("Please select exactly two adjectives.");
             return;
@@ -37,11 +40,19 @@ const AdjectivePage = () => {
                     adjective1,
                     adjective2
                 },
+                responseType: 'blob',
                 withCredentials: false
             });
 
-            const songData = response.data;
-            navigate('/song', { state: { songData } });
+            const blob = new Blob([response.data], { type: 'audio/wav' });
+            const songUrl = URL.createObjectURL(blob);
+
+            navigate('/song', {
+                state: {
+                    songUrl,
+                    songId: response.headers['x-song-id'] || 'Unknown Song'
+                }
+            });
         } catch (error) {
             console.error('Error fetching song:', error);
             alert('Failed to fetch song. Please try again.');
@@ -58,19 +69,19 @@ const AdjectivePage = () => {
             />
             <div class="btn-group" role="group" aria-label="Basic example">
 
-            <button
-                className="btn btn-primary mt-3"
-                onClick={() => navigate('/index')}
-            >
-                Back
-            </button>
+                <button
+                    className="btn btn-primary mt-3"
+                    onClick={() => navigate('/index')}
+                >
+                    Back
+                </button>
 
-            <button
-                className="btn btn-primary mt-3"
-                onClick={handleSubmit}
-            >
-                Submit
-            </button>
+                <button
+                    className="btn btn-primary mt-3"
+                    onClick={handleSubmit}
+                >
+                    Submit
+                </button>
             </div>
         </div>
     );
