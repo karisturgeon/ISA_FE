@@ -8,8 +8,13 @@ import AdjectivesPage from './pages/AdjectivesPage'
 import SongPlayer from './pages/SongPlayer'
 import Unauthorized from './pages/Unauthorized';
 import ProtectedRoute from './components/ProtectedRoute';
+import axios from 'axios';
 
 import Header from './components/Header';
+// Axios Global Configuration
+axios.defaults.withCredentials = true;
+
+
 
 function App() {
   return (

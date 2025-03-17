@@ -19,6 +19,7 @@ const Register = () => {
             try {
                 const res = await axios.post('https://oceaan-pendharkar.com/isa-be/ISA_BE/register', formData,
                     {
+                        withCredentials: false,
                         headers: { 'Content-Type': 'application/json' }
                     }
                 );
