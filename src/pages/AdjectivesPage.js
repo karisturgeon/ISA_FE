@@ -37,7 +37,7 @@ const AdjectivePage = () => {
                     adjective1,
                     adjective2
                 },
-                withCredentials: true
+                withCredentials: false
             });
 
             const songData = response.data;
