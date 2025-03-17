@@ -6,7 +6,7 @@ const SongPlayer = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const sampleSongUrl = "https://oceaan-pendharkar.com/isa-be/ISA_BE/songs/song_002.wav";
+    //const sampleSongUrl = "https://oceaan-pendharkar.com/isa-be/ISA_BE/songs/song_002.wav";
 
     const {songUrl, songId} = location.state || {};
     console.log("songURL: " + songUrl)
