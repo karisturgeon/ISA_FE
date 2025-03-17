@@ -37,10 +37,8 @@ const Register = () => {
     
                 localStorage.setItem('userId', id);
                 localStorage.setItem('userEmail', email);
-    
 
-                    console.log('Navigating to /index');
-                    navigate('/index');
+                    navigate('/login');
                 
             } catch (err) {
                 console.error('Error:', err.response ? err.response.data : err);
