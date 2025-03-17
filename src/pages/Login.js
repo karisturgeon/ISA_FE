@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     const [formData, setFormData] = useState({ email: '', password: '' });
@@ -15,11 +16,18 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const res = await axios.post('https://myWebAPIServer.ca/api/login', formData, {
-                withCredentials: true  // Required for cookies to be sent/received
-            });
+            const res = await axios.post('https://oceaan-pendharkar.com/isa-be/ISA_BE/login', formData);
+
+
+        console.log('API Response:', res.data);  // 👀 Confirm response data
 
             const { id, email, role } = res.data;
+
+            if (!id || !role) {
+                console.error('Missing data in API response:', res.data);
+                setError('Unexpected server response. Please try again.');
+                return;
+            }
 
             // Store user data in localStorage (token assumed to be stored in cookie)
             localStorage.setItem('userId', id);
@@ -28,11 +36,14 @@ const Login = () => {
 
             // Redirect based on role
             if (role === 'admin') {
+                console.log('Navigation to /admin');
                 navigate('/admin');
             } else {
-                navigate('/dashboard');
+                console.log('Navigating to /index');
+                navigate('/index');
             }
         } catch (err) {
+            console.error('Error:', err.response ? err.response.data : err);
             setError('Login failed. Please check your credentials.');
         }
     };
@@ -71,6 +82,11 @@ const Login = () => {
                 <button type="submit" className="btn btn-primary">
                     Login
                 </button>
+
+                <p className="mt-3">
+                    Don't have an account? <Link to="/register">Register here</Link>
+                </p>
+                <link></link>
             </form>
         </div>
     );

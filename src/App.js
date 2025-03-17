@@ -1,19 +1,38 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login';
-import AdminDashboard from './pages/Admin';
-import UserDashboard from './pages/Index';
+import Admin from './pages/Admin';
+import Index from './pages/Index';
+import Register from './pages/Register';
+import AdjectivesPage from './pages/AdjectivesPage'
+import SongPlayer from './pages/SongPlayer'
+import Unauthorized from './pages/Unauthorized';
 import ProtectedRoute from './components/ProtectedRoute';
 
+import Header from './components/Header';
+
 function App() {
-    return (
-        <Router>
-            <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route path="/admin" element={<ProtectedRoute role="admin"><AdminDashboard /></ProtectedRoute>} />
-                <Route path="/dashboard" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
-            </Routes>
-        </Router>
-    );
+  return (
+    <Router>
+      <Header />
+      <Routes>
+
+        {/* Set Home Page */}
+        <Route path="/" element={<Index />} />
+
+
+        {/* Other Routes */}
+
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/adjectives" element={<AdjectivesPage />} />
+        <Route path="/song" element={<SongPlayer />} />
+        <Route path="/admin" element={<ProtectedRoute role="admin"><Admin /></ProtectedRoute>} />
+        <Route path="/index" element={<ProtectedRoute><Index /></ProtectedRoute>} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
