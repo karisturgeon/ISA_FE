@@ -23,7 +23,7 @@ function App() {
       <Routes>
 
         {/* Set Home Page */}
-        <Route path="/" element={<Index />} />
+        <Route path="/" element={<ProtectedRoute><Index /></ProtectedRoute>} />
 
 
         {/* Other Routes */}

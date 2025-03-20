@@ -2,43 +2,61 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AdjectiveGrid from '../components/AdjectiveSelect';
+import '../style/adj.css'
 
-const adjectives = [
-    'Happy', 'Sad', 'Energetic', 'Calm',
-    'Focused', 'Relaxed', 'Excited', 'Bored'
+const primaryAdjectives = [
+    'Happy', 'Sad', 'Energetic', 'Calm', 
+    'Romantic', 'Angry', 'Anxious', 'Confident',
+    'Inspired', 'Lonely', 'Motivated', 'Curious'
 ];
+
+const secondaryAdjectives = {
+    'Happy': ['Joyful', 'Cheerful', 'Content', 'Ecstatic', 'Optimistic', 'Delighted'],
+    'Sad': ['Melancholy', 'Gloomy', 'Heartbroken', 'Grief-stricken', 'Somber', 'Despondent'],
+    'Energetic': ['Active', 'Lively', 'Dynamic', 'Exuberant', 'Vigorous', 'Spirited'],
+    'Calm': ['Serene', 'Peaceful', 'Tranquil', 'Composed', 'Relaxed', 'Mellow'],
+    'Romantic': ['Affectionate', 'Loving', 'Tender', 'Passionate', 'Charming', 'Intimate'],
+    'Angry': ['Irritated', 'Annoyed', 'Furious', 'Frustrated', 'Resentful', 'Enraged'],
+    'Anxious': ['Nervous', 'Worried', 'Tense', 'Apprehensive', 'Restless', 'Panicked'],
+    'Confident': ['Empowered', 'Assertive', 'Secure', 'Bold', 'Determined', 'Courageous'],
+    'Inspired': ['Creative', 'Imaginative', 'Motivated', 'Inventive', 'Visionary', 'Artistic'],
+    'Lonely': ['Isolated', 'Abandoned', 'Empty', 'Disconnected', 'Lonesome', 'Forlorn'],
+    'Motivated': ['Ambitious', 'Driven', 'Goal-oriented', 'Determined', 'Persistent', 'Focused'],
+    'Curious': ['Inquisitive', 'Exploratory', 'Adventurous', 'Eager', 'Intrigued', 'Wondrous']
+};
 
 const AdjectivePage = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { activity } = location.state || {};
-    const [selectedAdjectives, setSelectedAdjectives] = useState([]);
 
-    const handleAdjectiveSelect = (adjective) => {
-        if (selectedAdjectives.includes(adjective)) {
-            setSelectedAdjectives(selectedAdjectives.filter(item => item !== adjective));
-        } else if (selectedAdjectives.length < 2) {
-            setSelectedAdjectives([...selectedAdjectives, adjective]);
-        }
+    const [primaryAdjective, setPrimaryAdjective] = useState('');
+    const [selectedAdjective, setSelectedAdjective] = useState('');
+
+    const handlePrimaryAdjectiveSelect = (adjective) => {
+        setPrimaryAdjective(adjective);
+        setSelectedAdjective(''); // Reset secondary adjective when switching
+    };
+
+    const handleSecondaryAdjectiveSelect = (adjective) => {
+        setSelectedAdjective(adjective);
     };
 
     const handleSubmit = async () => {
         if (!activity) {
             alert("Please go back and select an activity");
         }
-        if (selectedAdjectives.length !== 2) {
-            alert("Please select exactly two adjectives.");
+        if (!primaryAdjective || !selectedAdjective) {
+            alert("Please select one primary and one secondary adjective.");
             return;
         }
-
-        const [adjective1, adjective2] = selectedAdjectives;
 
         try {
             const response = await axios.get(`https://oceaan-pendharkar.com/isa-be/ISA_BE/create-song`, {
                 params: {
                     activity,
-                    adjective1,
-                    adjective2
+                    adjective1: primaryAdjective,
+                    adjective2: selectedAdjective
                 },
                 responseType: 'blob',
                 withCredentials: false
@@ -61,24 +79,40 @@ const AdjectivePage = () => {
 
     return (
         <div className="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-light">
-            <h2>Select 2 Adjectives for: {activity}</h2>
-            <AdjectiveGrid
-                adjectives={adjectives}
-                selectedAdjectives={selectedAdjectives}
-                onSelect={handleAdjectiveSelect}
-            />
-            <div class="btn-group" role="group" aria-label="Basic example">
+            <h2>Select an Adjective for: {activity}</h2>
 
+            {/* Primary Adjective Selection */}
+            <AdjectiveGrid
+                adjectives={primaryAdjectives}
+                selectedAdjectives={primaryAdjective ? [primaryAdjective] : []}
+                onSelect={handlePrimaryAdjectiveSelect}
+            />
+
+            {/* Secondary Adjective Selection (Appears only after Primary selection) */}
+            {primaryAdjective && (
+                <>
+
+                    <h3>Now select a secondary adjective:</h3>
+                    <AdjectiveGrid
+                        adjectives={secondaryAdjectives[primaryAdjective]}
+                        selectedAdjectives={selectedAdjective ? [selectedAdjective] : []}
+                        onSelect={handleSecondaryAdjectiveSelect}
+                    />
+                </>
+            )}
+
+            <div className="btn-group mt-3" role="group" aria-label="Basic example">
                 <button
-                    className="btn btn-primary mt-3"
+                    className="btn btn-primary"
                     onClick={() => navigate('/index')}
                 >
                     Back
                 </button>
 
                 <button
-                    className="btn btn-primary mt-3"
+                    className="btn btn-primary"
                     onClick={handleSubmit}
+                    disabled={!primaryAdjective || !selectedAdjective}
                 >
                     Submit
                 </button>

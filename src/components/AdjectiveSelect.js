@@ -2,7 +2,7 @@ import React from 'react';
 
 const AdjectiveGrid = ({ adjectives, selectedAdjectives, onSelect }) => {
     return (
-        <div className="container mt-4">
+        <div className="container mt-4" id="adj-container">
             <div className="row g-3 justify-content-center">
                 {adjectives.map((adj, index) => (
                     <div key={index} className="col-6 col-md-4 col-lg-3">

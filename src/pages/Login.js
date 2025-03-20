@@ -21,7 +21,6 @@ const Login = () => {
                 headers: {'Content-Type': 'application/json'}
         });
 
-
         console.log('API Response:', res.data);  // 👀 Confirm response data
 
             const { id, email, role } = res.data;
