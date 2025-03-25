@@ -54,6 +54,7 @@ const AdjectivePage = () => {
         }
 
         setLoading(true); // show the loading screen
+        console.log("loading set to true");
 
         try {
             const response = await axios.get(`https://oceaan-pendharkar.com/api/v1/isa-be/ISA_BE/create-song`, {
