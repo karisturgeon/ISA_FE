@@ -32,6 +32,7 @@ const AdjectivePage = () => {
 
     const [primaryAdjective, setPrimaryAdjective] = useState('');
     const [selectedAdjective, setSelectedAdjective] = useState('');
+    const [loading, setLoading] = useState(false); // Loading state
 
     const handlePrimaryAdjectiveSelect = (adjective) => {
         setPrimaryAdjective(adjective);
@@ -45,11 +46,14 @@ const AdjectivePage = () => {
     const handleSubmit = async () => {
         if (!activity) {
             alert("Please go back and select an activity");
+            return;
         }
         if (!primaryAdjective || !selectedAdjective) {
             alert("Please select one primary and one secondary adjective.");
             return;
         }
+
+        setLoading(true); // show the loading screen
 
         try {
             const response = await axios.get(`https://oceaan-pendharkar.com/api/v1/isa-be/ISA_BE/create-song`, {
@@ -74,11 +78,24 @@ const AdjectivePage = () => {
         } catch (error) {
             console.error('Error fetching song:', error);
             alert('Failed to fetch song. Please try again.');
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
         <div className="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-light">
+        {loading ? (
+            // Loading Spinner
+            <div className="text-center">
+                <div className="spinner-border text-primary" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+                <p className="mt-3">Generating your song, please wait...</p>
+            </div>
+        ) : (
+
+            <>
             <h2>Select an Adjective for: {activity}</h2>
 
             {/* Primary Adjective Selection */}
@@ -117,6 +134,8 @@ const AdjectivePage = () => {
                     Submit
                 </button>
             </div>
+            </>
+        )}
         </div>
     );
 };
