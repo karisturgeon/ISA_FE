@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import MESSAGES from '../lang/en.js';
+
+const STRINGS = MESSAGES.REGISTER;
 
 const Register = () => {
 
@@ -25,13 +28,13 @@ const Register = () => {
             );
 
 
-            console.log('API Response:', res.data);  // 👀 Confirm response data
+            console.log('API Response:', res.data);  // Confirm response data
 
             const { id, email } = res.data;
 
             if (!id || !email) {
                 console.error('Missing data in API response:', res.data);
-                setError('Unexpected server response. Please try again.');
+                setError(STRINGS.serverFail);
                 return;
             }
 
@@ -45,7 +48,7 @@ const Register = () => {
             if (err.response && err.response.data && err.response.data.error) {
                 setError(err.response.data.error);  // Display backend error message
             } else {
-                setError('Registration failed. Please try again.');
+                setError(STRINGS.fail);
             }
         }
     };
@@ -56,12 +59,12 @@ const Register = () => {
             {error && <p className="alert alert-danger">{error}</p>}
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                    <label>Email</label>
+                    <label>{STRINGS.email}</label>
                     <input
                         type="email"
                         name="email"
                         className="form-control"
-                        placeholder="Enter email"
+                        placeholder={STRINGS.enterEmail}
                         value={formData.email}
                         onChange={handleChange}
                         required
@@ -69,12 +72,12 @@ const Register = () => {
                 </div>
 
                 <div className="mb-3">
-                    <label>Password</label>
+                    <label>{STRINGS.password}</label>
                     <input
                         type="password"
                         name="password"
                         className="form-control"
-                        placeholder="Enter password"
+                        placeholder={STRINGS.enterPassword}
                         value={formData.password}
                         onChange={handleChange}
                         required
@@ -82,11 +85,11 @@ const Register = () => {
                 </div>
 
                 <button type="submit" className="btn btn-primary">
-                    Register
+                    {STRINGS.register}
                 </button>
 
                 <p className="mt-3">
-                    Already have an account <Link to="/login">Login</Link>
+                    {STRINGS.haveAccount} <Link to="/login">{STRINGS.login}</Link>
                 </p>
             </form>
         </div>

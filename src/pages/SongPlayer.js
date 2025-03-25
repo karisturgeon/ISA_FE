@@ -1,5 +1,8 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import MESSAGES from '../lang/en.js'
+
+const STRINGS = MESSAGES.SONG;
 
 const SongPlayer = () => {
 
@@ -14,10 +17,10 @@ const SongPlayer = () => {
     if (!songUrl) {
         return (
             <div className="song-container">
-                <h2>No Song Found</h2>
-                <p>Please go back and try again</p>
+                <h2>{STRINGS.noSong}</h2>
+                <p>{STRINGS.tryAgain}</p>
                 <button className="btn btn-secondary mt-3" onClick={() => navigate('/')}>
-                    Back to Home
+                    {STRINGS.backHome}
                 </button>
             </div>
         );
@@ -25,11 +28,11 @@ const SongPlayer = () => {
 
     return (
         <div className="song-container">
-            <h2>Generated Song</h2>
-            <p>Playing: {songId || 'Unknown Song'}</p>
+            <h2>{STRINGS.genSong}</h2>
+            <p>{STRINGS.playing} {songId || STRINGS.unknown}</p>
             <audio controls>
                 <source src={songUrl} type="audio/wav" />
-                Your browser does not support the audio element.
+                {STRINGS.error}
             </audio>
         </div>
     );

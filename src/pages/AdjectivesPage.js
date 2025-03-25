@@ -3,6 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AdjectiveGrid from '../components/AdjectiveSelect';
 import '../style/adj.css'
+import MESSAGES from '../lang/en.js'
+
+const STRINGS = MESSAGES.ADJ;
 
 const primaryAdjectives = [
     'Happy', 'Sad', 'Energetic', 'Calm', 
@@ -45,16 +48,16 @@ const AdjectivePage = () => {
 
     const handleSubmit = async () => {
         if (!activity) {
-            alert("Please go back and select an activity");
+            alert(STRINGS.missingActivity);
             return;
         }
         if (!primaryAdjective || !selectedAdjective) {
-            alert("Please select one primary and one secondary adjective.");
+            alert(STRINGS.missingAdjective);
             return;
         }
 
         setLoading(true); // show the loading screen
-        console.log("loading set to true");
+      //  console.log("loading set to true");
 
         try {
             const response = await axios.get(`https://oceaan-pendharkar.com/api/v1/isa-be/ISA_BE/create-song`, {
@@ -124,7 +127,7 @@ const AdjectivePage = () => {
                     className="btn btn-primary"
                     onClick={() => navigate('/index')}
                 >
-                    Back
+                   {STRINGS.back}
                 </button>
 
                 <button
@@ -132,7 +135,7 @@ const AdjectivePage = () => {
                     onClick={handleSubmit}
                     disabled={!primaryAdjective || !selectedAdjective}
                 >
-                    Submit
+                    {STRINGS.submit}
                 </button>
             </div>
             </>

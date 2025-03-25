@@ -1,6 +1,10 @@
+import MESSAGES from '../lang/en.js'
+
+const STRINGS = MESSAGES.UNAUTHORIZED
+
 const Unauthorized = () => {
     return (
-    <h1>You are not authorized to see this page</h1>
+    <h1>{STRINGS.unauth}</h1>
     );
 }
 

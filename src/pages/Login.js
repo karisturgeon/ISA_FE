@@ -2,11 +2,17 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import LOGIN from '../lang/en.js'
+import MESSAGES from '../lang/en.js'
+
+const STRINGS = MESSAGES.LOGIN;
 
 const Login = () => {
+
     const [formData, setFormData] = useState({ email: '', password: '' });
     const [error, setError] = useState('');
     const navigate = useNavigate();
+
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -52,16 +58,16 @@ const Login = () => {
 
     return (
         <div className="container">
-            <h2>Login</h2>
+            <h2>{LOGIN.login}</h2>
             {error && <p className="alert alert-danger">{error}</p>}
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                    <label>Email</label>
+                    <label>{STRINGS.email}</label>
                     <input
                         type="email"
                         name="email"
                         className="form-control"
-                        placeholder="Enter email"
+                        placeholder={STRINGS.enterEmail}
                         value={formData.email}
                         onChange={handleChange}
                         required
@@ -69,12 +75,12 @@ const Login = () => {
                 </div>
 
                 <div className="mb-3">
-                    <label>Password</label>
+                    <label>{STRINGS.password}</label>
                     <input
                         type="password"
                         name="password"
                         className="form-control"
-                        placeholder="Enter password"
+                        placeholder={STRINGS.enterPassword}
                         value={formData.password}
                         onChange={handleChange}
                         required
@@ -82,11 +88,11 @@ const Login = () => {
                 </div>
 
                 <button type="submit" className="btn btn-primary">
-                    Login
+                    {STRINGS.login}
                 </button>
 
                 <p className="mt-3">
-                    Don't have an account? <Link to="/register">Register here</Link>
+                    {STRINGS.noAccount} <Link to="/register">{STRINGS.registerHere}</Link>
                 </p>
                 <link></link>
             </form>

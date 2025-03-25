@@ -1,8 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import MESSAGES from '../lang/en.js'
+import ActivityGrid from '../components/ActivitySelection';  
 
-import ActivityGrid from '../components/ActivitySelection';  // Path may vary
-//import './Index.css'; // Optional for additional styles
+const STRINGS = MESSAGES.ACTIVITY;
+
 const activities = [
     'Running', 'Eating', 'Cleaning', 'Sleeping',
     'Gaming', 'Studying', 'Shopping', 'Cooking',
@@ -19,7 +21,7 @@ const Index = () => {
     return (
         <div>
             <div className="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-light">
-                <h2>Select an Activity</h2>
+                <h2>{STRINGS.selectActivity}</h2>
                 <ActivityGrid items={activities} onSubmit={handleActivitySelect} />
             </div>
         </div>
