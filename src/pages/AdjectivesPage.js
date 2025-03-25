@@ -52,7 +52,7 @@ const AdjectivePage = () => {
         }
 
         try {
-            const response = await axios.get(`https://oceaan-pendharkar.com/isa-be/ISA_BE/create-song`, {
+            const response = await axios.get(`https://oceaan-pendharkar.com/api/v1/isa-be/ISA_BE/create-song`, {
                 params: {
                     activity,
                     adjective1: primaryAdjective,

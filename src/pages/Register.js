@@ -17,7 +17,7 @@ const Register = () => {
         e.preventDefault();
 
         try {
-            const res = await axios.post('https://oceaan-pendharkar.com/isa-be/ISA_BE/register', formData,
+            const res = await axios.post('https://oceaan-pendharkar.com/api/v1/isa-be/ISA_BE/register', formData,
                 {
                     withCredentials: false,
                     headers: { 'Content-Type': 'application/json' }

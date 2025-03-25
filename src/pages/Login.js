@@ -16,7 +16,7 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const res = await axios.post('https://oceaan-pendharkar.com/isa-be/ISA_BE/login', formData,
+            const res = await axios.post('https://oceaan-pendharkar.com/api/v1/isa-be/ISA_BE/login', formData,
                 { withCredentials: true ,
                 headers: {'Content-Type': 'application/json'}
         });
