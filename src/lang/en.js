@@ -56,6 +56,17 @@ const MESSAGES = {
     },
     UNAUTHORIZED: {
         unauth: "You are not authorized to see this page"
+    },
+    PROTECTEDROUTE: {
+        loading: "Loading..."
+    },
+    HEADER: {
+        logout: "Logout"
+    },
+    INDEX: {
+        welcome: "Welcome",
+        generate: "Generate a new Song",
+        go: "Go!"
     }
 
 }

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import LOGIN from '../lang/en.js'
 import MESSAGES from '../lang/en.js'
 
 const STRINGS = MESSAGES.LOGIN;
@@ -57,47 +56,55 @@ const Login = () => {
     };
 
     return (
-        <div className="container">
-            <h2>{LOGIN.login}</h2>
-            {error && <p className="alert alert-danger">{error}</p>}
-            <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label>{STRINGS.email}</label>
-                    <input
-                        type="email"
-                        name="email"
-                        className="form-control"
-                        placeholder={STRINGS.enterEmail}
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                    />
+        <div className="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-light">
+            <div className="card shadow rounded p-4 w-100" style={{ maxWidth: '400px' }}>
+                <div className="card-header text-center">
+                    <h4>{STRINGS.login}</h4>
                 </div>
-
-                <div className="mb-3">
-                    <label>{STRINGS.password}</label>
-                    <input
-                        type="password"
-                        name="password"
-                        className="form-control"
-                        placeholder={STRINGS.enterPassword}
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                    />
+    
+                <div className="card-body">
+                    {error && <p className="alert alert-danger">{error}</p>}
+    
+                    <form onSubmit={handleSubmit}>
+                        <div className="mb-3">
+                            <label className="form-label">{STRINGS.email}</label>
+                            <input
+                                type="email"
+                                name="email"
+                                className="form-control"
+                                placeholder={STRINGS.enterEmail}
+                                value={formData.email}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+    
+                        <div className="mb-3">
+                            <label className="form-label">{STRINGS.password}</label>
+                            <input
+                                type="password"
+                                name="password"
+                                className="form-control"
+                                placeholder={STRINGS.enterPassword}
+                                value={formData.password}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+    
+                        <button type="submit" className="btn btn-primary w-100">
+                            {STRINGS.login}
+                        </button>
+    
+                        <p className="mt-3 text-center">
+                            {STRINGS.noAccount} <Link to="/register">{STRINGS.registerHere}</Link>
+                        </p>
+                    </form>
                 </div>
-
-                <button type="submit" className="btn btn-primary">
-                    {STRINGS.login}
-                </button>
-
-                <p className="mt-3">
-                    {STRINGS.noAccount} <Link to="/register">{STRINGS.registerHere}</Link>
-                </p>
-                <link></link>
-            </form>
+            </div>
         </div>
     );
+    
 };
 
 export default Login;

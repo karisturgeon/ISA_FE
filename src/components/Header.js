@@ -1,4 +1,7 @@
 import React from 'react';
+import MESSAGES from '../lang/en.js'
+
+const STRINGS = MESSAGES.HEADER
 
 const Header = () => {
     return (
@@ -7,6 +10,9 @@ const Header = () => {
                 <a className="navbar-brand" href="./index">
                     MoodMelody
                 </a>
+                <button type="submit" className="btn btn-primary">
+                    {STRINGS.logout}
+                </button>
             </div>
         </nav>
     );

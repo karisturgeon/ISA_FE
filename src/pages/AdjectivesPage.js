@@ -5,6 +5,8 @@ import AdjectiveGrid from '../components/AdjectiveSelect';
 import '../style/adj.css'
 import MESSAGES from '../lang/en.js'
 
+
+
 const STRINGS = MESSAGES.ADJ;
 
 const primaryAdjectives = [
