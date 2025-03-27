@@ -63,7 +63,7 @@ const AdjectivePage = () => {
             setSelectedAdjective(adjective);
         }
     };
-    
+
 
     const handleSubmit = async () => {
         if (!activity) {
@@ -109,7 +109,6 @@ const AdjectivePage = () => {
     return (
         <div className="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-light">
             {loading ? (
-                // Loading Spinner
                 <div className="text-center">
                     <div className="spinner-border text-primary" role="status">
                         <span className="visually-hidden">Loading...</span>
@@ -117,38 +116,33 @@ const AdjectivePage = () => {
                     <p className="mt-3">Generating your song, please wait...</p>
                 </div>
             ) : (
-
                 <>
                     <h2>Select an Adjective for: {activity}</h2>
-
-                    {/* Primary Adjective Selection */}
                     <AdjectiveGrid
                         adjectives={adjectives}
                         selectedAdjectives={[primaryAdjective, selectedAdjective].filter(Boolean)}
                         onSelect={handleAdjectiveSelect}
                     />
+                    <div className="btn-group mt-3" role="group">
+                        <button
+                            className="btn btn-primary"
+                            onClick={() => navigate('/index')}
+                        >
+                            {STRINGS.back}
+                        </button>
+                        <button
+                            className="btn btn-primary"
+                            onClick={handleSubmit}
+                            disabled={!primaryAdjective || !selectedAdjective}
+                        >
+                            {STRINGS.submit}
+                        </button>
+                    </div>
                 </>
             )}
+        </div>
+    );
 
-            <div className="btn-group mt-3" role="group">
-                <button
-                    className="btn btn-primary"
-                    onClick={() => navigate('/index')}
-                >
-                    {STRINGS.back}
-                </button>
-
-                <button
-                    className="btn btn-primary"
-                    onClick={handleSubmit}
-                    disabled={!primaryAdjective || !selectedAdjective}
-                >
-                    {STRINGS.submit}
-                </button>
-            </div>
-        </>
-    )
-
-};
+}
 
 export default AdjectivePage;
