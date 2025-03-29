@@ -29,7 +29,7 @@ const AdjectivePage = () => {
                 if (!response.ok) throw new Error('Failed to fetch adjectives');
 
                 const data = await response.json();
-                const adjectivesNames = data.map(item => item.name);
+                const adjectivesNames = data.map(item => item.word);
                 setAdjectives(adjectivesNames);
 
             } catch (error) {
