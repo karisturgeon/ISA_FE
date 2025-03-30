@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import MESSAGES from '../lang/en.js'
 import ActivityGrid from '../components/ActivitySelection';
 import axios from 'axios';
+import Loading from '../components/Loading';
 const API = process.env.REACT_APP_API_URL;
 const STRINGS = MESSAGES.ACTIVITY;
 //
@@ -28,27 +29,27 @@ const ActivityPage = () => {
             try {
                 const response = await axios.get(`${API}activities`, {
                     withCredentials: true
-                  });
+                });
                 const data = response.data;
                 const activityNames = data.map(item => item.name);
                 setActivites(activityNames);
                 setError(null);
             } catch (error) {
                 console.error('Error fetching activities: ', error);
-              
+
                 if (error.response) {
                     // Server responded but with an error status
                     setError({
-                      code: error.response.status,
-                      message: error.response.data?.message || 'An error occurred while fetching activities.',
+                        code: error.response.status,
+                        message: error.response.data?.message || 'An error occurred while fetching activities.',
                     });
-                  } else {
+                } else {
                     // No response at all (network error, server down, etc.)
                     setError({
-                      code: 'NETWORK',
-                      message: 'Could not connect to the server. Please try again later.',
+                        code: 'NETWORK',
+                        message: 'Could not connect to the server. Please try again later.',
                     });
-                  }   
+                }
             } finally {
                 setLoading(false);
             }
@@ -64,9 +65,9 @@ const ActivityPage = () => {
         <div>
             <div className="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-light">
                 <h2>{STRINGS.selectActivity}</h2>
-    
+
                 {loading && !error ? (
-                    <p>{STRINGS.loading}</p>
+                    <Loading />
                 ) : error ? (
                     <div className="alert alert-danger text-center w-75" role="alert">
                         <strong>Error {error.code}:</strong> {error.message}
@@ -77,8 +78,8 @@ const ActivityPage = () => {
             </div>
         </div>
     );
-    
-    
+
+
 };
 
 export default ActivityPage;

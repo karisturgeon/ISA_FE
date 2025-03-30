@@ -63,7 +63,7 @@ const MESSAGES = {
     UNAUTHORIZED: {
         unauth: "You are not authorized to see this page"
     },
-    PROTECTEDROUTE: {
+    COMPONENTS: {
         loading: "Loading..."
     },
     HEADER: {

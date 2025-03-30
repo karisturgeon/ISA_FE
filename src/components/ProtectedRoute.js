@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import axios from 'axios';
-import MESSAGES from '../lang/en';
+// import { useEffect, useState } from 'react';
+// import { Navigate } from 'react-router-dom';
+// import axios from 'axios';
+// import MESSAGES from '../lang/en';
 
-const STRINGS = MESSAGES.PROTECTEDROUTE;
+// const STRINGS = MESSAGES.COMPONENTS;
 /**
  * Protects routes using the users role
  * redirects to login in user isn't logged in
@@ -24,7 +24,7 @@ const STRINGS = MESSAGES.PROTECTEDROUTE;
 // };
 
 const ProtectedRoute = ({ children, requiredRole }) => {
-    const [status, setStatus] = useState('loading');  
+    // const [status, setStatus] = useState('loading');  
 
 
     // useEffect(() => {
