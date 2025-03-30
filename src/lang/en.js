@@ -37,6 +37,9 @@ const MESSAGES = {
         missingAdjective: "Please select one primary and one secondary adjective.",
         submit: "Submit",
         back: "Back",
+        select: "Select two Adjectives for: ",
+        generating: "Generating your song, please wait...",
+        loading: "Loading..."
     },
     ADMIN: {
         adminDash: "Admin Dashboard"

@@ -85,8 +85,7 @@ const AdjectivePage = () => {
                     adjective1: primaryAdjective,
                     adjective2: selectedAdjective
                 },
-                responseType: 'blob',
-                withCredentials: false
+                responseType: 'blob'
             });
 
             const blob = new Blob([response.data], { type: 'audio/wav' });
@@ -111,13 +110,13 @@ const AdjectivePage = () => {
             {loading ? (
                 <div className="text-center">
                     <div className="spinner-border text-primary" role="status">
-                        <span className="visually-hidden">Loading...</span>
+                        <span className="visually-hidden">{ShadowRoot}</span>
                     </div>
-                    <p className="mt-3">Generating your song, please wait...</p>
+                    <p className="mt-3">{STRINGS.generating}</p>
                 </div>
             ) : (
                 <>
-                    <h2>Select an Adjective for: {activity}</h2>
+                    <h2>{STRINGS.select}{activity}</h2>
                     <AdjectiveGrid
                         adjectives={adjectives}
                         selectedAdjectives={[primaryAdjective, selectedAdjective].filter(Boolean)}

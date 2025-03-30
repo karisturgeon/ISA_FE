@@ -10,7 +10,7 @@ const Header = () => {
                 <a className="navbar-brand" href="./index">
                     MoodMelody
                 </a>
-                <button type="submit" className="btn btn-primary">
+                <button onClick={logout} className="btn btn-outline-danger">
                     {STRINGS.logout}
                 </button>
             </div>
