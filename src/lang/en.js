@@ -63,7 +63,8 @@ const MESSAGES = {
         alertSelect: "Please select an activity or enter a custom one.",
         customAct: "Or enter a custom activity",
         error: "Error",
-        serverError: "Could not connect to the server. Please try again later."
+        serverError: "Could not connect to the server. Please try again later.",
+        next: "Next"
     },
     SONG: {
         noSong: "No Soung Found",

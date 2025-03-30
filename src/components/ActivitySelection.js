@@ -70,7 +70,7 @@ const ActivityGrid = ({ items, onSubmit }) => {
                     className="btn btn-primary w-100"
                     onClick={handleSubmit}
                 >
-                    Submit
+                    {STRINGS.next}
                 </button>
             </div>
         </div>

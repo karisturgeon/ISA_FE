@@ -11,6 +11,14 @@ const Admin = () => {
   const [totalHistory, setTotalHistory] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [adjectives, setAdjectives] = useState([]);
+  const [activities, setActivities] = useState([]);
+  const [editedAdjectives, setEditedAdjectives] = useState({});
+  const [editedActivities, setEditedActivities] = useState({});
+  const [newAdjective, setNewAdjective] = useState('');
+  const [newActivity, setNewActivity] = useState('');
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,13 +27,19 @@ const Admin = () => {
           axios.get(`${API}endpoint_history`, { withCredentials: true }),
           axios.get(`${API}total_endpoint_history`, { withCredentials: true })
         ]);
+        const [adjRes, actRes] = await Promise.all([
+          axios.get(`${API}adjectives`, { withCredentials: true }),
+          axios.get(`${API}activities`, { withCredentials: true })
+        ]);
 
+        setAdjectives(adjRes.data);
+        setActivities(actRes.data);
         setEndpointHistory(endpointRes.data);
         setTotalHistory(totalRes.data);
         setError(null);
       } catch (error) {
         console.error("Error fetching data:", error);
-      
+
         let status = error.response?.status || STRINGS.unknown;
         let message = error.response?.statusText || STRINGS.unknownError;
 
@@ -38,6 +52,86 @@ const Admin = () => {
     fetchData();
   }, []);
 
+  const handleAddAdjective = async () => {
+    try {
+      const res = await axios.post(`${API}adjectives`, { word: newAdjective }, { withCredentials: true });
+      setAdjectives([...adjectives, res.data]);
+      setNewAdjective('');
+    } catch (err) {
+      alert(`Failed to add adjective: ${err.response?.data?.error || err.message}`);
+    }
+  };
+
+  const handleAddActivity = async () => {
+    try {
+      const res = await axios.post(`${API}activities`, { name: newActivity }, { withCredentials: true });
+      setActivities([...activities, res.data]);
+      setNewActivity('');
+    } catch (err) {
+      alert(`Failed to add activity: ${err.response?.data?.error || err.message}`);
+    }
+  };
+
+  const handleAdjectiveChange = (id, newWord) => {
+    setEditedAdjectives(prev => ({ ...prev, [id]: newWord }));
+  };
+
+  const handleActivityChange = (id, newName) => {
+    setEditedActivities(prev => ({ ...prev, [id]: newName }));
+  };
+  const handleUpdateAdjective = async (id) => {
+    const newWord = editedAdjectives[id];
+    try {
+      const res = await axios.patch(`${API}adjectives/${id}`, { word: newWord }, { withCredentials: true });
+      setAdjectives(adjectives.map(a => a.id === id ? res.data : a));
+      setEditedAdjectives(prev => {
+        const updated = { ...prev };
+        delete updated[id];
+        return updated;
+      });
+    } catch (err) {
+      console.error(`Failed to update adjective: ${err.response?.data?.error || err.message}`);
+    }
+  };
+
+  const handleUpdateActivity = async (id) => {
+    const newName = editedActivities[id];
+    try {
+      const res = await axios.patch(`${API}activities/${id}`, { name: newName }, { withCredentials: true });
+      setActivities(activities.map(a => a.id === id ? res.data : a));
+      setEditedActivities(prev => {
+        const updated = { ...prev };
+        delete updated[id];
+        return updated;
+      });
+    } catch (err) {
+      console.error(`Failed to update activity: ${err.response?.data?.error || err.message}`);
+    }
+  };
+
+  const handleDeleteAdjective = async (word) => {
+    try {
+      await axios.delete(`${API}adjectives`, {
+        data: { word },
+        withCredentials: true
+      });
+      setAdjectives(adjectives.filter(adj => adj.word !== word));
+    } catch (err) {
+      console.error(`Failed to delete adjective: ${word}`);
+    }
+  };
+
+  const handleDeleteActivity = async (name) => {
+    try {
+      await axios.delete(`${API}activities`, {
+        data: { name },
+        withCredentials: true
+      });
+      setActivities(activities.filter(act => act.name !== name));
+    } catch (err) {
+      console.error(`Failed to delete activity: ${name}`);
+    }
+  };
 
   return (
     <div className="container mt-4">
@@ -87,6 +181,103 @@ const Admin = () => {
               ))}
             </tbody>
           </table>
+          <h3>Adjectives</h3>
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Word</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {adjectives.map((adj) => (
+                <tr key={adj.id}>
+                  <td>{adj.id}</td>
+                  <td>
+                    <input
+                      type="text"
+                      value={editedAdjectives[adj.id] ?? adj.word}
+                      onChange={(e) => handleAdjectiveChange(adj.id, e.target.value)}
+                    />
+                  </td>
+                  <td>
+                    <button className="btn btn-sm btn-success me-2"   style={{ width: '80px' }}onClick={() => handleUpdateAdjective(adj.id)}>Update</button>
+                    <button className="btn btn-sm btn-danger"  style={{ width: '80px' }} onClick={() => handleDeleteAdjective(adj.word)}>Delete</button>
+                  </td>
+
+                </tr>
+
+
+              ))}
+
+              <tr>
+                <td>New</td>
+                <td>
+                  <input
+                    type="text"
+                    value={newAdjective}
+                    onChange={(e) => setNewAdjective(e.target.value)}
+                    placeholder="Enter new adjective"
+                  />
+                </td>
+                <td>
+                  <button
+                    className="btn btn-sm btn-primary"  style={{ width: '80px' }}
+                    onClick={handleAddAdjective}
+                  >
+                    Add
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Activities</h3>
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {activities.map((act) => (
+                <tr key={act.id}>
+                  <td>{act.id}</td>
+                  <td>
+                    <input
+                      type="text"
+                      value={editedActivities[act.id] ?? act.name}
+                      onChange={(e) => handleActivityChange(act.id, e.target.value)}
+                    />
+                  </td>
+                  <td>
+                    <button className="btn btn-sm btn-success me-2"  style={{ width: '80px' }} onClick={() => handleUpdateActivity(act.id)}>Update</button>
+                    <button className="btn btn-sm btn-danger"  style={{ width: '80px' }}onClick={() => handleDeleteActivity(act.name)}>Delete</button>
+                  </td>
+                </tr>
+              ))}
+
+              <tr>
+                <td>New</td>
+                <td>
+                  <input
+                    type="text"
+                    value={newActivity}
+                    onChange={(e) => setNewActivity(e.target.value)}
+                    placeholder="Enter new activity"
+                  />
+                </td>
+                <td>
+                  <button className="btn btn-sm btn-primary"   style={{ width: '80px' }}onClick={handleAddActivity}>Add</button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+
         </>
       )}
 
