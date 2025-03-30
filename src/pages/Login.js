@@ -12,48 +12,48 @@ const Login = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
         try {
-            const res = await axios.post(`${API}login`, formData,
-                { withCredentials: true ,
-                headers: {'Content-Type': 'application/json'}
-        });
-
-        console.log('API Response:', res.data);  // 👀 Confirm response data
-
+            const res = await axios.post(`${API}login`, formData, {
+                withCredentials: true,
+                headers: { 'Content-Type': 'application/json' }
+            });
+    
+            console.log('API Response:', res.data);
+    
             const { id, email, role } = res.data;
-
-            if (!id || !role) {
+    
+            if (!id || !role || !email) {
                 console.error('Missing data in API response:', res.data);
                 setError('Unexpected server response. Please try again.');
                 return;
             }
-
-            // Store user data in localStorage (token assumed to be stored in cookie)
-            localStorage.setItem('userId', id);
-            localStorage.setItem('userEmail', email);
-            localStorage.setItem('userRole', JSON.stringify(role));
-
+    
             // Redirect based on role
             if (role === 'admin') {
-                console.log('Navigation to /admin');
+                console.log('Navigating to /admin');
                 navigate('/admin');
             } else {
                 console.log('Navigating to /index');
                 navigate('/index');
             }
+    
         } catch (err) {
-            console.error('Error:', err.response ? err.response.data : err);
-            setError('Login failed. Please check your credentials.');
+            const status = err.response?.status || 'UNKNOWN';
+            const message = err.response?.data?.message || 'Login failed. Please check your credentials.';
+            console.error(`Login error (${status}):`, err.response?.data || err);
+    
+            setError(`Error ${status}: ${message}`);
         }
     };
+    
+    
 
     return (
         <div className="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-light">
