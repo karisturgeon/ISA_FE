@@ -110,7 +110,7 @@ const AdjectivePage = () => {
             {loading ? (
                 <div className="text-center">
                     <div className="spinner-border text-primary" role="status">
-                        <span className="visually-hidden">{ShadowRoot}</span>
+                        <span className="visually-hidden">{STRINGS.loading}</span>
                     </div>
                     <p className="mt-3">{STRINGS.generating}</p>
                 </div>
