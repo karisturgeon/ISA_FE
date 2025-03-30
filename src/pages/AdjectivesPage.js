@@ -25,10 +25,10 @@ const AdjectivePage = () => {
     useEffect(() => {
         const fetchAdjectives = async () => {
             try {
-                const response = await fetch('https://oceaan-pendharkar.com/api/v1/isa-be/ISA_BE/adjectives')
-                if (!response.ok) throw new Error('Failed to fetch adjectives');
+                const response = await axios.get('https://oceaan-pendharkar.com/api/v1/isa-be/ISA_BE/adjectives')
+                const data = response.data;
 
-                const data = await response.json();
+
                 const adjectivesNames = data.map(item => item.word);
                 setAdjectives(adjectivesNames);
 
