@@ -1,5 +1,6 @@
 import React from 'react';
 import MESSAGES from '../lang/en.js'
+import logout from '../hooks/useLogout.js';
 
 const STRINGS = MESSAGES.HEADER
 
