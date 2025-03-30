@@ -1,7 +1,7 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MESSAGES from '../lang/en.js'
-import ActivityGrid from '../components/ActivitySelection';  
+import ActivityGrid from '../components/ActivitySelection';
 
 const STRINGS = MESSAGES.ACTIVITY;
 //
@@ -19,24 +19,20 @@ const ActivityPage = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+
         const fetchActivities = async () => {
             try {
-                const response = await fetch('https://oceaan-pendharkar.com/api/v1/isa-be/ISA_BE/activities', {
-                    credentials: 'include' 
-                  });
-                if(!response.ok) throw new Error ('Failed to fetch activities');
-
-                const data = await response.json();
+                const response = await axios.get('https://oceaan-pendharkar.com/api/v1/isa-be/ISA_BE/activities');
+                const data = response.data;
                 const activityNames = data.map(item => item.name);
                 setActivites(activityNames);
-
-            } catch(error) {
+            } catch (error) {
                 console.error('Error fetching activities: ', error);
             } finally {
                 setLoading(false);
             }
-
         };
+
         fetchActivities();
     }, []);
 
