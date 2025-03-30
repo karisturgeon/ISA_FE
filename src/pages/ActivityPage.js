@@ -21,7 +21,9 @@ const ActivityPage = () => {
     useEffect(() => {
         const fetchActivities = async () => {
             try {
-                const response = await fetch('https://oceaan-pendharkar.com/api/v1/isa-be/ISA_BE/activities')
+                const response = await fetch('https://oceaan-pendharkar.com/api/v1/isa-be/ISA_BE/activities', {
+                    credentials: 'include' 
+                  });
                 if(!response.ok) throw new Error ('Failed to fetch activities');
 
                 const data = await response.json();
