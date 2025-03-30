@@ -27,24 +27,24 @@ const ProtectedRoute = ({ children, requiredRole }) => {
     const [status, setStatus] = useState('loading');  
 
 
-    useEffect(() => {
-        const checkRole = async () => {
-            try {
-                const response = await axios.get('/api/v1/auth/role', { withCredentials: true });
-                const { role } = response.data;
+    // useEffect(() => {
+    //     const checkRole = async () => {
+    //         try {
+    //             const response = await axios.get('/api/v1/auth/role', { withCredentials: true });
+    //             const { role } = response.data;
 
-                if (role === requiredRole) {
-                    setStatus('authorized');
-                } else {
-                    setStatus('unauthorized');
-                }
-            } catch {
-               setStatus('unauthenticated');
-            }
-        };
+    //             if (role === requiredRole) {
+    //                 setStatus('authorized');
+    //             } else {
+    //                 setStatus('unauthorized');
+    //             }
+    //         } catch {
+    //            setStatus('unauthenticated');
+    //         }
+    //     };
 
-        checkRole();
-    }, [requiredRole]);
+    //     checkRole();
+    // }, [requiredRole]);
 
 
     // if (status === 'loading') return <p>{STRINGS.loading}</p>;
