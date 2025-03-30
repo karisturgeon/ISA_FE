@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import MESSAGES from '../lang/en.js'
-
+const API = process.env.REACT_APP_API_URL;
 const STRINGS = MESSAGES.LOGIN;
 
 const Login = () => {
@@ -21,7 +21,7 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const res = await axios.post('https://oceaan-pendharkar.com/api/v1/isa-be/ISA_BE/login', formData,
+            const res = await axios.post(`${API}login`, formData,
                 { withCredentials: true ,
                 headers: {'Content-Type': 'application/json'}
         });

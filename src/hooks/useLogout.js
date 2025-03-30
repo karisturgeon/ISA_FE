@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+const API = process.env.REACT_APP_API_URL;
 const useLogout = () => {
   const navigate = useNavigate();
 
@@ -12,7 +12,7 @@ const useLogout = () => {
       localStorage.removeItem('userRole');
 
       // Log out from the server (withCredentials enabled globally)
-      await axios.post('https://oceaan-pendharkar.com/api/v1/isa-be/ISA_BE/logout');
+      await axios.post(`${API}logout`);
 
       // Optional: remove token from Axios default headers
       delete axios.defaults.headers.common['Authorization'];

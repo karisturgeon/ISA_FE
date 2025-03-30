@@ -1,10 +1,11 @@
 import React from 'react';
 import MESSAGES from '../lang/en.js'
-import logout from '../hooks/useLogout.js';
+import useLogout from '../hooks/useLogout.js';
 
 const STRINGS = MESSAGES.HEADER
 
 const Header = () => {
+    const logout = useLogout();
     return (
         <nav className="navbar bg-body-tertiary">
             <div className="container-fluid">

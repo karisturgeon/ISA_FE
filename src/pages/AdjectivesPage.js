@@ -4,8 +4,8 @@ import axios from 'axios';
 import AdjectiveGrid from '../components/AdjectiveSelect';
 import '../style/adj.css'
 import MESSAGES from '../lang/en.js'
+const API = process.env.REACT_APP_API_URL;
 
-///https://oceaan-pendharkar.com/api/v1/isa-be/ISA_BE/adjectives
 
 const STRINGS = MESSAGES.ADJ;
 
@@ -25,7 +25,7 @@ const AdjectivePage = () => {
     useEffect(() => {
         const fetchAdjectives = async () => {
             try {
-                const response = await axios.get('https://oceaan-pendharkar.com/api/v1/isa-be/ISA_BE/adjectives')
+                const response = await axios.get(`${API}adjectives`)
                 const data = response.data;
 
 
@@ -79,7 +79,7 @@ const AdjectivePage = () => {
         //  console.log("loading set to true");
 
         try {
-            const response = await axios.get(`https://oceaan-pendharkar.com/api/v1/isa-be/ISA_BE/create-song`, {
+            const response = await axios.get(`${API}create-song`, {
                 params: {
                     activity,
                     adjective1: primaryAdjective,
