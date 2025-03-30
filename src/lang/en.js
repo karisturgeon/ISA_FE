@@ -42,8 +42,13 @@ const MESSAGES = {
         loading: "Loading..."
     },
     ADMIN: {
-        adminDash: "Admin Dashboard"
-
+        adminDash: "Admin Dashboard",
+        endpointUsage: "Total Endpoint Usage",
+        count: "Count",
+        path: "Path",
+        method: "Method",
+        userUsage: "Total Usage by User",
+        email: "Email"
     },
     ACTIVITY: {
         selectActivity: "Select an Activity",

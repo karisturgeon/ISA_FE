@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import MESSAGES from '../lang/en.js';
 import axios from 'axios';
+import Loading from '../components/Loading';
 
 const API = process.env.REACT_APP_API_URL;
 const STRINGS = MESSAGES.ADMIN;
@@ -18,7 +19,7 @@ const Admin = () => {
           axios.get(`${API}endpoint_history`, { withCredentials: true }),
           axios.get(`${API}total_endpoint_history`, { withCredentials: true })
         ]);
-        
+
         setEndpointHistory(endpointRes.data);
         setTotalHistory(totalRes.data);
         setError(null);
@@ -29,60 +30,60 @@ const Admin = () => {
         setLoading(false);
       }
     };
-  
+
     fetchData();
   }, []);
-  
+
 
   return (
     <div className="container mt-4">
       <h1>{STRINGS.adminDash}</h1>
 
       {loading ? (
-  <p>Loading...</p>
-) : error ? (
-  <div className="alert alert-danger">{error}</div>
-) : (
-  <>
-    <h3>User Endpoint Usage</h3>
-    <table className="table table-striped">
-      <thead>
-        <tr>
-          <th>Count</th>
-          <th>Path</th>
-          <th>Method</th>
-        </tr>
-      </thead>
-      <tbody>
-        {endpointHistory.map((item, index) => (
-          <tr key={index}>
-            <td>{item.count}</td>
-            <td>{item.path}</td>
-            <td>{item.method}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+        <Loading />
+      ) : error ? (
+        <div className="alert alert-danger">{error}</div>
+      ) : (
+        <>
+          <h3>{STRINGS.endpointUsage}</h3>
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th>{STRINGS.count}</th>
+                <th>{STRINGS.path}</th>
+                <th>{STRINGS.method}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {endpointHistory.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.count}</td>
+                  <td>{item.path}</td>
+                  <td>{item.method}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
-    <h3>Total Usage Across All Users</h3>
-    <table className="table table-striped">
-      <thead>
-        <tr>
-          <th>Count</th>
-          <th>Email</th>
-        </tr>
-      </thead>
-      <tbody>
-        {totalHistory.map((item, index) => (
-          <tr key={index}>
-            <td>{item.count}</td>
-            <td>{item.email}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </>
-)}
+          <h3>{STRINGS.userUsage}</h3>
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th>{STRINGS.count}</th>
+                <th>{STRINGS.email}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {totalHistory.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.count}</td>
+                  <td>{item.email}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      )}
 
     </div>
   );
