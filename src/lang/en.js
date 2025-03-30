@@ -34,12 +34,16 @@ const MESSAGES = {
     },
     ADJ: {
         missingActivity: "Please go back and select an activity",
-        missingAdjective: "Please select one primary and one secondary adjective.",
         submit: "Submit",
         back: "Back",
-        select: "Select two Adjectives for: ",
+        select: "Select two Moods for: ",
         generating: "Generating your song, please wait...",
-        loading: "Loading..."
+        loading: "Loading...",
+        error: "Error",
+        addCustom: "Add a custom adjective",
+        customPlaceholder: "Enter your own adjective...",
+        add: "Add"
+
     },
     ADMIN: {
         adminDash: "Admin Dashboard",
@@ -48,13 +52,18 @@ const MESSAGES = {
         path: "Path",
         method: "Method",
         userUsage: "Total Usage by User",
-        email: "Email"
+        email: "Email",
+        unknown: "Unknown",
+        unknownError: "An unknown error occurred.",
+
     },
     ACTIVITY: {
         selectActivity: "Select an Activity",
         loading: "Loading...",
         alertSelect: "Please select an activity or enter a custom one.",
-        customAct: "Or enter a custom activity"
+        customAct: "Or enter a custom activity",
+        error: "Error",
+        serverError: "Could not connect to the server. Please try again later."
     },
     SONG: {
         noSong: "No Soung Found",

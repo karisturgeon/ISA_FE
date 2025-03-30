@@ -8,11 +8,6 @@ const API = process.env.REACT_APP_API_URL;
 const STRINGS = MESSAGES.ACTIVITY;
 //
 
-// const activities = [
-//     'Running', 'Eating', 'Cleaning', 'Sleeping',
-//     'Gaming', 'Studying', 'Shopping', 'Cooking',
-//     'Working', 'Dancing', 'Reading', 'Exercising'
-// ];
 
 
 const ActivityPage = () => {
@@ -21,7 +16,7 @@ const ActivityPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    console.log("API base:", API); // Should not be undefined
+    //console.log("API base:", API); // Should not be undefined
 
     useEffect(() => {
 
@@ -46,15 +41,14 @@ const ActivityPage = () => {
                 } else {
                     // No response at all (network error, server down, etc.)
                     setError({
-                        code: 'NETWORK',
-                        message: 'Could not connect to the server. Please try again later.',
+                        code: '',
+                        message: STRINGS.serverError,
                     });
                 }
             } finally {
                 setLoading(false);
             }
         };
-
         fetchActivities();
     }, []);
 
@@ -65,12 +59,11 @@ const ActivityPage = () => {
         <div>
             <div className="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-light">
                 <h2>{STRINGS.selectActivity}</h2>
-
                 {loading && !error ? (
                     <Loading />
                 ) : error ? (
                     <div className="alert alert-danger text-center w-75" role="alert">
-                        <strong>Error {error.code}:</strong> {error.message}
+                        <strong>{STRINGS.error}{error.code}:</strong> {error.message}
                     </div>
                 ) : (
                     <ActivityGrid items={activities} onSubmit={handleActivitySelect} />
@@ -78,8 +71,6 @@ const ActivityPage = () => {
             </div>
         </div>
     );
-
-
 };
 
 export default ActivityPage;

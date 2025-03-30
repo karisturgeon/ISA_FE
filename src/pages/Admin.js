@@ -25,7 +25,11 @@ const Admin = () => {
         setError(null);
       } catch (error) {
         console.error("Error fetching data:", error);
-        setError('Failed to load one or more datasets.');
+      
+        let status = error.response?.status || STRINGS.unknown;
+        let message = error.response?.statusText || STRINGS.unknownError;
+
+        setError(`Error ${status}: ${message}`);
       } finally {
         setLoading(false);
       }
@@ -43,6 +47,7 @@ const Admin = () => {
         <Loading />
       ) : error ? (
         <div className="alert alert-danger">{error}</div>
+
       ) : (
         <>
           <h3>{STRINGS.endpointUsage}</h3>
