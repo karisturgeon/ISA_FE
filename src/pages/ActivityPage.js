@@ -44,7 +44,7 @@ const ActivityPage = () => {
             <div className="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-light">
                 <h2>{STRINGS.selectActivity}</h2>
                 {loading ? (
-                    <p>Loading...</p>
+                    <p>{STRINGS.loading}</p>
                 ) : (
                     <ActivityGrid items={activities} onSubmit={handleActivitySelect} />
                 )}

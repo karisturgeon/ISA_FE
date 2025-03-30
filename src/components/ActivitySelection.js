@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import MESSAGES from '../lang/en';
+import axios from 'axios';
+
+const STRINGS = MESSAGES.ACTIVITY
 
 const ActivityGrid = ({ items, onSubmit }) => {
     const [selectedActivity, setSelectedActivity] = useState('');
@@ -9,15 +13,28 @@ const ActivityGrid = ({ items, onSubmit }) => {
         setCustomInput('');            // Clear the text input when a button is selected
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const activityToSubmit = customInput.trim() || selectedActivity;
 
         if (!activityToSubmit) {
-            alert('Please select an activity or enter a custom one.');
+            alert(STRINGS.alertSelect);
             return;
         }
-
-        onSubmit(activityToSubmit);  // Send the selected or custom activity
+        try {
+            // If a custom activity was typed (i.e. not selected from the buttons)
+            if (customInput.trim()) {
+                // Send POST to backend
+                await axios.post('https://oceaan-pendharkar.com/api/v1/isa-be/ISA_BE/activities', {
+                    name: customInput.trim()
+                });
+            }
+    
+            // Call parent handler
+            onSubmit(activityToSubmit);
+        } catch (error) {
+            console.error('Failed to submit custom activity:', error);
+            alert('Failed to save custom activity. Please try again.');
+        }
     };
 
     return (
@@ -42,7 +59,7 @@ const ActivityGrid = ({ items, onSubmit }) => {
                 <input
                     type="text"
                     className="form-control mb-2"
-                    placeholder="Or enter a custom activity"
+                    placeholder={STRINGS.customAct}
                     value={customInput}
                     onChange={(e) => {
                         setCustomInput(e.target.value);

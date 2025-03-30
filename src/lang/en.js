@@ -46,7 +46,10 @@ const MESSAGES = {
 
     },
     ACTIVITY: {
-        selectActivity: "Select an Activity"
+        selectActivity: "Select an Activity",
+        loading: "Loading...",
+        alertSelect: "Please select an activity or enter a custom one.",
+        customAct: "Or enter a custom activity"
     },
     SONG: {
         noSong: "No Soung Found",
