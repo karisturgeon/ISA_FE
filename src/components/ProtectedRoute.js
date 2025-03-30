@@ -47,11 +47,11 @@ const ProtectedRoute = ({ children, requiredRole }) => {
     }, [requiredRole]);
 
 
-    if (status === 'loading') return <p>{STRINGS.loading}</p>;
+    // if (status === 'loading') return <p>{STRINGS.loading}</p>;
 
-    if (status === 'unauthenticated') return <Navigate to="/login" />;
+    // if (status === 'unauthenticated') return <Navigate to="/login" />;
     
-    if (status === 'unauthorized') return <Navigate to="/unauthorized" />;
+    // if (status === 'unauthorized') return <Navigate to="/unauthorized" />;
 
     return children;
 };
