@@ -72,7 +72,13 @@ const MESSAGES = {
     INDEX: {
         welcome: "Welcome",
         generate: "Generate a new Song",
-        go: "Go!"
+        go: "Go!",
+        loadingError: "An error ocurred while loading data.",
+        connectFail: "Could not connect to the server. Please try again later.",
+        error: "Error",
+        count: "Count",
+        path: "Path",
+        method: "Method"
     }
 
 }

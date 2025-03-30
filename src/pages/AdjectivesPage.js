@@ -131,7 +131,7 @@ const AdjectivePage = () => {
                   <div className="btn-group mt-3" role="group">
                     <button
                       className="btn btn-primary"
-                      onClick={() => navigate('/index')}
+                      onClick={() => navigate('/activities')}
                     >
                       {STRINGS.back}
                     </button>

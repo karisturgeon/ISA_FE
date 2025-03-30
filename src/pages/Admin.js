@@ -7,56 +7,83 @@ const STRINGS = MESSAGES.ADMIN;
 
 const Admin = () => {
   const [endpointHistory, setEndpointHistory] = useState([]);
+  const [totalHistory, setTotalHistory] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchEndpointHistory = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get(`${API}endpoint_history`, {
-          withCredentials: true,
-        });
-        setEndpointHistory(response.data);
+        const [endpointRes, totalRes] = await Promise.all([
+          axios.get(`${API}endpoint_history`, { withCredentials: true }),
+          axios.get(`${API}total_endpoint_history`, { withCredentials: true })
+        ]);
+        
+        setEndpointHistory(endpointRes.data);
+        setTotalHistory(totalRes.data);
         setError(null);
       } catch (error) {
-        console.error("Error fetching endpoint history:", error);
-        setError('Failed to load data.');
+        console.error("Error fetching data:", error);
+        setError('Failed to load one or more datasets.');
       } finally {
         setLoading(false);
       }
     };
-
-    fetchEndpointHistory();
+  
+    fetchData();
   }, []);
+  
 
   return (
     <div className="container mt-4">
       <h1>{STRINGS.adminDash}</h1>
 
       {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <div className="alert alert-danger">{error}</div>
-      ) : (
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>Count</th>
-              <th>Path</th>
-              <th>Method</th>
-            </tr>
-          </thead>
-          <tbody>
-            {endpointHistory.map((item, index) => (
-              <tr key={index}>
-                <td>{item.count}</td>
-                <td>{item.path}</td>
-                <td>{item.method}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+  <p>Loading...</p>
+) : error ? (
+  <div className="alert alert-danger">{error}</div>
+) : (
+  <>
+    <h3>User Endpoint Usage</h3>
+    <table className="table table-striped">
+      <thead>
+        <tr>
+          <th>Count</th>
+          <th>Path</th>
+          <th>Method</th>
+        </tr>
+      </thead>
+      <tbody>
+        {endpointHistory.map((item, index) => (
+          <tr key={index}>
+            <td>{item.count}</td>
+            <td>{item.path}</td>
+            <td>{item.method}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+
+    <h3>Total Usage Across All Users</h3>
+    <table className="table table-striped">
+      <thead>
+        <tr>
+          <th>Count</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        {totalHistory.map((item, index) => (
+          <tr key={index}>
+            <td>{item.count}</td>
+            <td>{item.email}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </>
+)}
+
     </div>
   );
 };

@@ -24,8 +24,11 @@ const Index = () => {
   useEffect(() => {
     const fetchEndpointHistory = async () => {
       try {
+        console.log("Fetching endpoint history...");
+
         const response = await axios.get(`${API}user_endpoint_history`, {
           withCredentials: true,
+          timeout: 5000,
         });
         setEndpointHistory(response.data);
         setError({ code: null, message: null });
@@ -36,12 +39,12 @@ const Index = () => {
         if (error.response) {
           setError({
             code: error.response.status,
-            message: error.response.data?.message || 'An error occurred while loading data.'
+            message: error.response.data?.message || STRINGS.loadingError
           });
         } else {
           setError({
             code: '',
-            message: 'Could not connect to the server. Please try again later.'
+            message: STRINGS.connectFail
           });
         }
       }
@@ -51,7 +54,7 @@ const Index = () => {
     };
 
     fetchEndpointHistory();
-  }, []);
+  }, []); // the empty [] tell react to only run this effect once 
 
   return (
     <div className="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-light">
@@ -60,7 +63,7 @@ const Index = () => {
   <Loading/>
     ) :error.message ? (
     <div className="alert alert-danger">
-      <strong>Error {error.code}:</strong> {error.message}
+      <strong>{STRINGS.error} {error.code}:</strong> {error.message}
       <p className="mt-3">
         Please <Link to="/login">log in</Link> or <Link to="/register">register</Link> to continue.
       </p>
@@ -75,9 +78,9 @@ const Index = () => {
       <table className="table table-striped">
         <thead>
           <tr>
-            <th>Count</th>
-            <th>Path</th>
-            <th>Method</th>
+            <th>{STRINGS.count}</th>
+            <th>{STRINGS.path}</th>
+            <th>{STRINGS.method}</th>
           </tr>
         </thead>
         <tbody>
