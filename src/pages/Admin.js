@@ -118,8 +118,8 @@ const Admin = () => {
       setAdjectives(adjectives.filter(adj => adj.word !== word));
     } catch (err) {
       alert(`${STRINGS.failedDelAdj}${word}\n${err.response?.status || ''}:${err.response?.statusText || ''}\n${err.response?.data?.error || err.message}`);
-  }
-};
+    }
+  };
 
 
   const handleDeleteActivity = async (name) => {
@@ -204,8 +204,8 @@ const Admin = () => {
                     />
                   </td>
                   <td>
-                    <button className="btn btn-sm btn-success me-2"   style={{ width: '80px' }}onClick={() => handleUpdateAdjective(adj.id)}>{STRINGS.update}</button>
-                    <button className="btn btn-sm btn-danger"  style={{ width: '80px' }} onClick={() => handleDeleteAdjective(adj.word)}>{STRINGS.delete}</button>
+                    <button className="btn btn-sm btn-success me-2" style={{ width: '80px' }} onClick={() => handleUpdateAdjective(adj.id)}>{STRINGS.update}</button>
+                    <button className="btn btn-sm btn-danger" style={{ width: '80px' }} onClick={() => handleDeleteAdjective(adj.word)}>{STRINGS.delete}</button>
                   </td>
 
                 </tr>
@@ -225,7 +225,7 @@ const Admin = () => {
                 </td>
                 <td>
                   <button
-                    className="btn btn-sm btn-primary"  style={{ width: '80px' }}
+                    className="btn btn-sm btn-primary" style={{ width: '80px' }}
                     onClick={handleAddAdjective}
                   >
                     {STRINGS.add}
@@ -239,7 +239,7 @@ const Admin = () => {
           <table className="table table-striped">
             <thead>
               <tr>
-              <th>{STRINGS.id}</th>
+                <th>{STRINGS.id}</th>
                 <th>{STRINGS.word}</th>
                 <th>{STRINGS.actions}</th>
               </tr>
@@ -256,8 +256,8 @@ const Admin = () => {
                     />
                   </td>
                   <td>
-                    <button className="btn btn-sm btn-success me-2"  style={{ width: '80px' }} onClick={() => handleUpdateActivity(act.id)}>{STRINGS.update}</button>
-                    <button className="btn btn-sm btn-danger"  style={{ width: '80px' }}onClick={() => handleDeleteActivity(act.name)}>{STRINGS.delete}</button>
+                    <button className="btn btn-sm btn-success me-2" style={{ width: '80px' }} onClick={() => handleUpdateActivity(act.id)}>{STRINGS.update}</button>
+                    <button className="btn btn-sm btn-danger" style={{ width: '80px' }} onClick={() => handleDeleteActivity(act.name)}>{STRINGS.delete}</button>
                   </td>
                 </tr>
               ))}
@@ -273,7 +273,7 @@ const Admin = () => {
                   />
                 </td>
                 <td>
-                  <button className="btn btn-sm btn-primary"   style={{ width: '80px' }}onClick={handleAddActivity}>{STRINGS.add}</button>
+                  <button className="btn btn-sm btn-primary" style={{ width: '80px' }} onClick={handleAddActivity}>{STRINGS.add}</button>
                 </td>
               </tr>
 

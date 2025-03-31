@@ -106,10 +106,26 @@ const AdjectivePage = () => {
         }
       });
     } catch (error) {
-      let status = error.response?.status || STRINGS.unknown;
-      let message = error.response?.statusText || STRINGS.unknownError;
+      const status = error.response?.status;
+      console.log(error);
+      if (status === 429 && error.response?.data) {
+        // Server responded with a valid song even though it's rate-limited
+        const blob = new Blob([error.response.data], { type: 'audio/wav' });
+        const songUrl = URL.createObjectURL(blob);
+        alert(`${STRINGS.exceededLimit}\n${error.response.status} ${error.response.statusText}`)
 
-      alert(`Error ${status}: ${message}`);
+    
+        navigate('/song', {
+          state: {
+            songUrl,
+            songId: error.response.headers?.['x-song-id'] || STRINGS.unknownSong,
+          },
+        });
+      } else {
+        const fallbackStatus = status || STRINGS.unknown;
+        const fallbackMessage = error.response?.statusText || STRINGS.unknownError;
+        alert(`${STRINGS.error} ${fallbackStatus}: ${fallbackMessage}`);
+      }
     } finally {
       setLoading(false);
     }

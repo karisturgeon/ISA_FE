@@ -53,7 +53,8 @@ const MESSAGES = {
         unknown: "Unknown",
         unknownError: "An unknown error occurred.",
         goBack: "Go Back",
-        unknownSong: "Unknown Song"
+        unknownSong: "Unknown Song",
+        exceededLimit: "You've exceeded your limit of 20 songs"
     },
     ADMIN: {
         adminDash: "Admin Dashboard",

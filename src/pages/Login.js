@@ -18,42 +18,42 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+
         try {
             const res = await axios.post(`${API}login`, formData, {
                 withCredentials: true,
                 headers: { 'Content-Type': 'application/json' }
             });
-    
-            console.log('API Response:', res.data);
-    
+
+            //console.log('API Response:', res.data);
+
             const { id, email, role } = res.data;
-    
+
             if (!id || !role || !email) {
                 console.error('Missing data in API response:', res.data);
                 setError(STRINGS.serverError);
                 return;
             }
-    
+
             // Redirect based on role
             if (role === 'admin') {
-                console.log('Navigating to /admin');
+                // console.log('Navigating to /admin');
                 navigate('/admin');
             } else {
-                console.log('Navigating to /index');
+                //  console.log('Navigating to /index');
                 navigate('/index');
             }
-    
+
         } catch (err) {
             const status = err.response?.status || '';
             const message = err.response?.data.error || STRINGS.errorMess;
-            console.error(`Login error (${status}):`, err.response?.data || err);
-    
+            //  console.error(`Login error (${status}):`, err.response?.data || err);
+
             setError(`${error} ${status}: ${message}`);
         }
     };
-    
-    
+
+
 
     return (
         <div className="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-light">
@@ -61,10 +61,10 @@ const Login = () => {
                 <div className="card-header text-center">
                     <h4>{STRINGS.login}</h4>
                 </div>
-    
+
                 <div className="card-body">
                     {error && <p className="alert alert-danger">{error}</p>}
-    
+
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">
                             <label className="form-label">{STRINGS.email}</label>
@@ -78,7 +78,7 @@ const Login = () => {
                                 required
                             />
                         </div>
-    
+
                         <div className="mb-3">
                             <label className="form-label">{STRINGS.password}</label>
                             <input
@@ -91,11 +91,11 @@ const Login = () => {
                                 required
                             />
                         </div>
-    
+
                         <button type="submit" className="btn btn-primary w-100">
                             {STRINGS.login}
                         </button>
-    
+
                         <p className="mt-3 text-center">
                             {STRINGS.noAccount} <Link to="/register">{STRINGS.registerHere}</Link>
                         </p>
@@ -104,7 +104,7 @@ const Login = () => {
             </div>
         </div>
     );
-    
+
 };
 
 export default Login;

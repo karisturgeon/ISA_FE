@@ -28,7 +28,7 @@ const Register = () => {
                 }
             );
 
-            console.log('API Response:', res.data);  // Confirm response data
+            // console.log('API Response:', res.data);  // Confirm response data
 
             const { id, email } = res.data;
 
@@ -57,10 +57,10 @@ const Register = () => {
                 <div className="card-header text-center">
                     <h4>{STRINGS.register}</h4>
                 </div>
-    
+
                 <div className="card-body">
                     {error && <p className="alert alert-danger">{error}</p>}
-    
+
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">
                             <label className="form-label">{STRINGS.email}</label>
@@ -74,7 +74,7 @@ const Register = () => {
                                 required
                             />
                         </div>
-    
+
                         <div className="mb-3">
                             <label className="form-label">{STRINGS.password}</label>
                             <input
@@ -87,11 +87,11 @@ const Register = () => {
                                 required
                             />
                         </div>
-    
+
                         <button type="submit" className="btn btn-primary w-100">
                             {STRINGS.register}
                         </button>
-    
+
                         <p className="mt-3 text-center">
                             {STRINGS.haveAccount} <Link to="/login">{STRINGS.login}</Link>
                         </p>
@@ -100,7 +100,7 @@ const Register = () => {
             </div>
         </div>
     );
-    
+
 
 
 };

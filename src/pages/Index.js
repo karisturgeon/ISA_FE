@@ -24,7 +24,7 @@ const Index = () => {
   useEffect(() => {
     const fetchEndpointHistory = async () => {
       try {
-        console.log("Fetching endpoint history...");
+        //console.log("Fetching endpoint history...");
 
         const response = await axios.get(`${API}user_endpoint_history`, {
           withCredentials: true,
@@ -34,7 +34,7 @@ const Index = () => {
         setError({ code: null, message: null });
 
       } catch (error) {
-        console.error("Error fetching endpoint history:", error);
+        // console.error("Error fetching endpoint history:", error);
 
         if (error.response) {
           setError({
