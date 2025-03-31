@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import MESSAGES from '../lang/en.js';
 
 const STRINGS = MESSAGES.REGISTER;
+const API = process.env.REACT_APP_API_URL;
 
 const Register = () => {
 
@@ -20,9 +21,9 @@ const Register = () => {
         e.preventDefault();
 
         try {
-            const res = await axios.post('https://oceaan-pendharkar.com/api/v1/isa-be/ISA_BE/register', formData,
+            const res = await axios.post(`${API}register`, formData,
                 {
-                    withCredentials: false,
+                    withCredentials: true,
                     headers: { 'Content-Type': 'application/json' }
                 }
             );
@@ -43,12 +44,10 @@ const Register = () => {
             navigate('/login');
 
         } catch (err) {
-            console.error('Error:', err.response ? err.response.data : err);
-            if (err.response && err.response.data && err.response.data.error) {
-                setError(err.response.data.error);  // Display backend error message
-            } else {
-                setError(STRINGS.fail);
-            }
+            const status = err.response?.status || '';
+            const message = err.response?.data.error || STRINGS.fail;
+            console.error(`Register (${status}):`, err.response?.data || err);
+            setError(`${STRINGS.error} ${status}: ${message}`);
         }
     };
 

@@ -21,7 +21,11 @@ const MESSAGES = {
         password: "Password",
         enterPassword: "Enter password",
         serverError: "Unexpected server response. Please try again.",
-        error: "Login Failed. Please try again."
+        errorMess: "Login Failed. Please try again.",
+        error: "Error"
+    },
+    LOGOUT: {
+        fail: "Logout Failed"
     },
     REGISTER: {
         fail: "Registration failed. Please try again.",
@@ -32,7 +36,8 @@ const MESSAGES = {
         password: "Password",
         enterPassword: "Enter password",
         login: "Login",
-        haveAccount: "Already have an account? "
+        haveAccount: "Already have an account? ",
+        error: "Error"
     },
     ADJ: {
         missingActivity: "Please go back and select an activity",

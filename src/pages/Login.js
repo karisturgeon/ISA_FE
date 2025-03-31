@@ -46,10 +46,10 @@ const Login = () => {
     
         } catch (err) {
             const status = err.response?.status || '';
-            const message = err.response?.data.error || STRINGS.error;
+            const message = err.response?.data.error || STRINGS.errorMess;
             console.error(`Login error (${status}):`, err.response?.data || err);
     
-            setError(`Error ${status}: ${message}`);
+            setError(`${error} ${status}: ${message}`);
         }
     };
     

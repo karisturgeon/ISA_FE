@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import MESSAGES from '../lang/en';
+const STRINGS = MESSAGES.LOGOUT;
 const API = process.env.REACT_APP_API_URL;
 const useLogout = () => {
   const navigate = useNavigate();
@@ -16,11 +18,14 @@ const useLogout = () => {
 
       // Optional: remove token from Axios default headers
       delete axios.defaults.headers.common['Authorization'];
-
+      alert("Logout Successful")
       // Redirect to login page
       navigate('/login');
     } catch (error) {
-      console.error('Logout failed:', error);
+
+      const status = error.response?.status || '';
+      const message = error.response?.data.error || STRINGS.fail;
+      alert(`${STRINGS.fail} \n${status} ${message}`)
       navigate('/login');
     }
   };
