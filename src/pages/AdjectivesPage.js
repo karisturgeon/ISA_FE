@@ -102,7 +102,7 @@ const AdjectivePage = () => {
       navigate('/song', {
         state: {
           songUrl,
-          songId: response.headers['x-song-id'] || 'Unknown Song'
+          songId: response.headers['x-song-id'] || STRINGS.unknownSong
         }
       });
     } catch (error) {

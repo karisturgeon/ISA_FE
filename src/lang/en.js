@@ -19,7 +19,9 @@ const MESSAGES = {
         email: "Email",
         enterEmail: "Enter email",
         password: "Password",
-        enterPassword: "Enter password"
+        enterPassword: "Enter password",
+        serverError: "Unexpected server response. Please try again.",
+        error: "Login Failed. Please try again."
     },
     REGISTER: {
         fail: "Registration failed. Please try again.",
@@ -46,6 +48,7 @@ const MESSAGES = {
         unknown: "Unknown",
         unknownError: "An unknown error occurred.",
         goBack: "Go Back",
+        unknownSong: "Unknown Song"
     },
     ADMIN: {
         adminDash: "Admin Dashboard",
@@ -63,6 +66,8 @@ const MESSAGES = {
         failedUpdAct: "Failed to update activity: ",
         failedDelAdj: "Failed to delete adjective: ",
         failedDelAct: "Failed to delete activity: ",
+        newAdj: "Enter new adjective",
+        newAct: "Enter new activity",
         id: "ID",
         word: "Word",
         actions: "Actions",

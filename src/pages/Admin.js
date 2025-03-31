@@ -220,7 +220,7 @@ const Admin = () => {
                     type="text"
                     value={newAdjective}
                     onChange={(e) => setNewAdjective(e.target.value)}
-                    placeholder="Enter new adjective"
+                    placeholder={STRINGS.newAdj}
                   />
                 </td>
                 <td>
@@ -269,7 +269,7 @@ const Admin = () => {
                     type="text"
                     value={newActivity}
                     onChange={(e) => setNewActivity(e.target.value)}
-                    placeholder="Enter new activity"
+                    placeholder={STRINGS.newAct}
                   />
                 </td>
                 <td>

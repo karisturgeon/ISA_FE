@@ -31,7 +31,7 @@ const Login = () => {
     
             if (!id || !role || !email) {
                 console.error('Missing data in API response:', res.data);
-                setError('Unexpected server response. Please try again.');
+                setError(STRINGS.serverError);
                 return;
             }
     
@@ -45,8 +45,8 @@ const Login = () => {
             }
     
         } catch (err) {
-            const status = err.response?.status || 'UNKNOWN';
-            const message = err.response?.data?.message || 'Login failed. Please check your credentials.';
+            const status = err.response?.status || '';
+            const message = err.response?.data.error || STRINGS.error;
             console.error(`Login error (${status}):`, err.response?.data || err);
     
             setError(`Error ${status}: ${message}`);

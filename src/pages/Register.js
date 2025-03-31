@@ -27,7 +27,6 @@ const Register = () => {
                 }
             );
 
-
             console.log('API Response:', res.data);  // Confirm response data
 
             const { id, email } = res.data;
