@@ -58,7 +58,7 @@ const Admin = () => {
       setAdjectives([...adjectives, res.data]);
       setNewAdjective('');
     } catch (err) {
-      alert(`Failed to add adjective: ${err.response?.data?.error || err.message}`);
+      alert(`${STRINGS.failedAddAdj}${newAdjective}\n${err.response?.status || ''}:${err.response?.statusText || ''}\n${err.response?.data?.error || err.message}`);
     }
   };
 
@@ -68,7 +68,7 @@ const Admin = () => {
       setActivities([...activities, res.data]);
       setNewActivity('');
     } catch (err) {
-      alert(`Failed to add activity: ${err.response?.data?.error || err.message}`);
+      alert(`${STRINGS.failedAddAct}${newActivity}\n${err.response?.status || ''}:${err.response?.statusText || ''}\n${err.response?.data?.error || err.message}`);
     }
   };
 
@@ -90,7 +90,7 @@ const Admin = () => {
         return updated;
       });
     } catch (err) {
-      console.error(`Failed to update adjective: ${err.response?.data?.error || err.message}`);
+      alert(`${STRINGS.failedUpdAdj}${id}\n${err.response?.status || ''}:${err.response?.statusText || ''}\n${err.response?.data?.error || err.message}`);
     }
   };
 
@@ -105,7 +105,7 @@ const Admin = () => {
         return updated;
       });
     } catch (err) {
-      console.error(`Failed to update activity: ${err.response?.data?.error || err.message}`);
+      alert(`${STRINGS.failedUpdAct}${id}\n${err.response?.status || ''}:${err.response?.statusText || ''}\n${err.response?.data?.error || err.message}`);
     }
   };
 
@@ -117,9 +117,10 @@ const Admin = () => {
       });
       setAdjectives(adjectives.filter(adj => adj.word !== word));
     } catch (err) {
-      console.error(`Failed to delete adjective: ${word}`);
-    }
-  };
+      alert(`${STRINGS.failedDelAdj}${word}\n${err.response?.status || ''}:${err.response?.statusText || ''}\n${err.response?.data?.error || err.message}`);
+  }
+};
+
 
   const handleDeleteActivity = async (name) => {
     try {
@@ -129,9 +130,10 @@ const Admin = () => {
       });
       setActivities(activities.filter(act => act.name !== name));
     } catch (err) {
-      console.error(`Failed to delete activity: ${name}`);
+      alert(`${STRINGS.failedDelAct}${name}\n${err.response?.status || ''}:${err.response?.statusText || ''}\n${err.response?.data?.error || err.message}`);
     }
   };
+
 
   return (
     <div className="container mt-4">
@@ -185,9 +187,9 @@ const Admin = () => {
           <table className="table table-striped">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Word</th>
-                <th>Actions</th>
+                <th>{STRINGS.id}</th>
+                <th>{STRINGS.word}</th>
+                <th>{STRINGS.actions}</th>
               </tr>
             </thead>
             <tbody>
@@ -202,8 +204,8 @@ const Admin = () => {
                     />
                   </td>
                   <td>
-                    <button className="btn btn-sm btn-success me-2"   style={{ width: '80px' }}onClick={() => handleUpdateAdjective(adj.id)}>Update</button>
-                    <button className="btn btn-sm btn-danger"  style={{ width: '80px' }} onClick={() => handleDeleteAdjective(adj.word)}>Delete</button>
+                    <button className="btn btn-sm btn-success me-2"   style={{ width: '80px' }}onClick={() => handleUpdateAdjective(adj.id)}>{STRINGS.update}</button>
+                    <button className="btn btn-sm btn-danger"  style={{ width: '80px' }} onClick={() => handleDeleteAdjective(adj.word)}>{STRINGS.delete}</button>
                   </td>
 
                 </tr>
@@ -212,7 +214,7 @@ const Admin = () => {
               ))}
 
               <tr>
-                <td>New</td>
+                <td>{STRINGS.new}</td>
                 <td>
                   <input
                     type="text"
@@ -226,7 +228,7 @@ const Admin = () => {
                     className="btn btn-sm btn-primary"  style={{ width: '80px' }}
                     onClick={handleAddAdjective}
                   >
-                    Add
+                    {STRINGS.add}
                   </button>
                 </td>
               </tr>
@@ -237,9 +239,9 @@ const Admin = () => {
           <table className="table table-striped">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Actions</th>
+              <th>{STRINGS.id}</th>
+                <th>{STRINGS.word}</th>
+                <th>{STRINGS.actions}</th>
               </tr>
             </thead>
             <tbody>
@@ -254,14 +256,14 @@ const Admin = () => {
                     />
                   </td>
                   <td>
-                    <button className="btn btn-sm btn-success me-2"  style={{ width: '80px' }} onClick={() => handleUpdateActivity(act.id)}>Update</button>
-                    <button className="btn btn-sm btn-danger"  style={{ width: '80px' }}onClick={() => handleDeleteActivity(act.name)}>Delete</button>
+                    <button className="btn btn-sm btn-success me-2"  style={{ width: '80px' }} onClick={() => handleUpdateActivity(act.id)}>{STRINGS.update}</button>
+                    <button className="btn btn-sm btn-danger"  style={{ width: '80px' }}onClick={() => handleDeleteActivity(act.name)}>{STRINGS.delete}</button>
                   </td>
                 </tr>
               ))}
 
               <tr>
-                <td>New</td>
+                <td>{STRINGS.new}</td>
                 <td>
                   <input
                     type="text"
@@ -271,7 +273,7 @@ const Admin = () => {
                   />
                 </td>
                 <td>
-                  <button className="btn btn-sm btn-primary"   style={{ width: '80px' }}onClick={handleAddActivity}>Add</button>
+                  <button className="btn btn-sm btn-primary"   style={{ width: '80px' }}onClick={handleAddActivity}>{STRINGS.add}</button>
                 </td>
               </tr>
 
@@ -284,5 +286,6 @@ const Admin = () => {
     </div>
   );
 };
+
 
 export default Admin;

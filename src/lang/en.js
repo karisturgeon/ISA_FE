@@ -55,7 +55,19 @@ const MESSAGES = {
         email: "Email",
         unknown: "Unknown",
         unknownError: "An unknown error occurred.",
-
+        failedAddAdj: "Failed to add adjective: ",
+        failedAddAct: "Failed to add activity: ",
+        failedUpdAdj: "Failed to update adjective: ",
+        failedUpdAct: "Failed to update activity: ",
+        failedDelAdj: "Failed to delete adjective: ",
+        failedDelAct: "Failed to delete activity: ",
+        id: "ID",
+        word: "Word",
+        actions: "Actions",
+        update: "Update",
+        delete: "Delete",
+        add: "Add",
+        new: "New"
     },
     ACTIVITY: {
         selectActivity: "Select an Activity",
