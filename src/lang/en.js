@@ -42,8 +42,10 @@ const MESSAGES = {
         error: "Error",
         addCustom: "Add a custom adjective",
         customPlaceholder: "Enter your own adjective...",
-        add: "Add"
-
+        add: "Add",
+        unknown: "Unknown",
+        unknownError: "An unknown error occurred.",
+        goBack: "Go Back",
     },
     ADMIN: {
         adminDash: "Admin Dashboard",
@@ -76,7 +78,10 @@ const MESSAGES = {
         customAct: "Or enter a custom activity",
         error: "Error",
         serverError: "Could not connect to the server. Please try again later.",
-        next: "Next"
+        next: "Next",
+        unknown: "Unknown",
+        unknownError: "An unknown error occurred.",
+        goBack: "Go Back",
     },
     SONG: {
         noSong: "No Soung Found",
@@ -107,11 +112,9 @@ const MESSAGES = {
         path: "Path",
         method: "Method",
         usage: "Your Endpoint Usage",
-
         login: "log in",
         or: "or",
         register: "register",
-
     }
 
 }

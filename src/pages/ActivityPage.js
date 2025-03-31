@@ -29,7 +29,7 @@ const ActivityPage = () => {
         if (error.response) {
           setError({
             code: error.response.status,
-            message: error.response.data?.message || 'An error occurred while fetching activities.',
+            message: error.response.data?.message || STRINGS.serverError,
           });
         } else {
           setError({ code: '', message: STRINGS.serverError });
@@ -59,7 +59,10 @@ const ActivityPage = () => {
       navigate('/adjectives', { state: { activity: activityToSubmit } });
     } catch (error) {
       console.error('Failed to submit custom activity:', error);
-      alert('Failed to save custom activity. Please try again.');
+      let status = error.response?.status || STRINGS.unknown;
+      let message = error.response?.statusText || STRINGS.unknownError;
+
+      alert(`${STRINGS.error} ${status}: ${message}`);
     } finally {
       setSubmitting(false);
     }
@@ -80,7 +83,10 @@ const ActivityPage = () => {
             <Loading />
           ) : error ? (
             <div className="alert alert-danger" role="alert">
-              <strong>{STRINGS.error}{error.code}:</strong> {error.message}
+              <p><strong>{STRINGS.error}{error.code}:</strong> {error.message}</p>
+              <button className="btn btn-primary mt-3" onClick={() => navigate('/index')}>
+                {STRINGS.goBack}
+              </button>
             </div>
           ) : (
             <>
@@ -103,7 +109,7 @@ const ActivityPage = () => {
                   }}
                 />
                 <button
-                  className="btn btn-primary w-100"
+                  className="btn btn-primary"
                   onClick={handleSubmit}
                   disabled={submitting || (!customInput.trim() && !selectedActivity)}
                 >

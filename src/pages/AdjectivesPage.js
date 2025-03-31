@@ -14,6 +14,7 @@ const STRINGS = MESSAGES.ADJ;
 const AdjectivePage = () => {
   const navigate = useNavigate();
   const [adjectives, setAdjectives] = useState([]);
+  const [fetchError, setFetchError] = useState(null);
 
   const [loading, setLoading] = useState(true);
   const { state } = useLocation();
@@ -28,18 +29,20 @@ const AdjectivePage = () => {
 
   useEffect(() => {
     const fetchAdjectives = async () => {
-      console.log("Fetching adjectives..."); // debug
+      //console.log("Fetching adjectives..."); // debug
       try {
-        const response = await axios.get(`${API}adjectives?limit=50`);
-        console.log("Adjectives response:", response);
+        const response = await axios.get(`${API}adjectives`);
+        //console.log("Adjectives response:", response);
         const data = response.data;
         const adjectivesNames = data.map(item => item.word);
         setAdjectives(adjectivesNames);
       } catch (error) {
-        console.error('Error fetching adjectives:', error);
-        setAdjectives([]); // Fallback (optional)
-      } finally {
-        console.log("Setting loading to false");
+        let status = error.response?.status || STRINGS.unknown;
+        let message = error.response?.statusText || STRINGS.unknownError;
+        setFetchError(`Error ${status}: ${message}`);
+      }
+      finally {
+        //console.log("Setting loading to false");
         setLoading(false);
       }
     };
@@ -103,8 +106,10 @@ const AdjectivePage = () => {
         }
       });
     } catch (error) {
-      console.error('Error fetching song:', error);
-      alert('Failed to fetch song. Please try again.');
+      let status = error.response?.status || STRINGS.unknown;
+      let message = error.response?.statusText || STRINGS.unknownError;
+
+      alert(`Error ${status}: ${message}`);
     } finally {
       setLoading(false);
     }
@@ -116,13 +121,17 @@ const AdjectivePage = () => {
         <div className="card-body text-center">
           {loading ? (
             <Loading />
-          ) : adjectives.length === 0 ? (
+          ) : fetchError ? (
             <div className="alert alert-danger">
               <h4>{STRINGS.error}</h4>
-              <p>Could not load adjectives. Please try again later.</p>
+              <p>{fetchError}</p>
               <button className="btn btn-primary mt-3" onClick={() => navigate('/index')}>
-                Go Back
+                {STRINGS.goBack}
               </button>
+            </div>
+          ) : adjectives.length === 0 ? (
+            <div className="alert alert-warning">
+              <p>{STRINGS.noAdjectivesFound}</p>
             </div>
           ) : (
             <>
@@ -145,19 +154,22 @@ const AdjectivePage = () => {
                     className="btn btn-success"
                     onClick={async () => {
                       if (!customAdjective.trim()) return;
-  
+
                       setSubmittingCustom(true);
                       try {
                         await axios.post(`${API}adjectives`, { word: customAdjective.trim() }, {
                           withCredentials: true,
                           headers: { 'Content-Type': 'application/json' }
                         });
-  
+
                         setAdjectives(prev => [...prev, customAdjective.trim()]);
                         setCustomAdjective('');
                       } catch (err) {
                         console.error("Failed to add adjective:", err);
-                        alert("Could not add adjective. Please try again.");
+                        let status = err.response?.status || STRINGS.unknown;
+                        let message = err.response?.statusText || STRINGS.unknownError;
+
+                        alert(`Error ${status}: ${message}`);
                       } finally {
                         setSubmittingCustom(false);
                       }
@@ -189,7 +201,7 @@ const AdjectivePage = () => {
       </div>
     </div>
   );
-  
+
 
 }
 
