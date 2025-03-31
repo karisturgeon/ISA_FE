@@ -1,16 +1,3 @@
-// const LOGIN = {
-//     missingActivity: "Please go back and select an activity",
-//     missingAdjective: "Please select one primary and one secondary adjective.",
-//     login: "Login",
-//     noAccount: "Don't have an account?",
-//     registerHere: "Register here",
-//     email: "Email",
-//     enterEmail: "Enter email",
-//     password: "Password",
-//     enterPassword: "Enter password"
-// }
-
-
 const MESSAGES = {
     LOGIN: {
         login: "Login",

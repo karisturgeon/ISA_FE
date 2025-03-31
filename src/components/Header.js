@@ -1,3 +1,4 @@
+//ChatGPT was used to assist with this file
 import React from 'react';
 import MESSAGES from '../lang/en.js'
 import useLogout from '../hooks/useLogout.js';

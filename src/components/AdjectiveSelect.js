@@ -1,3 +1,4 @@
+//ChatGPT was used to assist with this file
 import React from 'react';
 
 const AdjectiveGrid = ({ adjectives, selectedAdjectives, onSelect }) => {

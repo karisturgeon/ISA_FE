@@ -1,4 +1,4 @@
-// src/components/Loading.js
+//ChatGPT was used to assist with this file
 import React from 'react';
 import MESSAGES from '../lang/en';
 
@@ -16,11 +16,3 @@ const Loading = () => {
 };
 
 export default Loading;
-// (
-//     <div className="text-center">
-//         <div className="spinner-border text-primary" role="status">
-//             <span className="visually-hidden">{STRINGS.loading}</span>
-//         </div>
-//         <p className="mt-3">{STRINGS.generating}</p>
-//     </div>
-// )

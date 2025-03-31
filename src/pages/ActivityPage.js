@@ -1,3 +1,4 @@
+//ChatGPT was used to assist with this file
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MESSAGES from '../lang/en.js';

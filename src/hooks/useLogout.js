@@ -1,3 +1,4 @@
+//ChatGPT was used to assist with this file
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import MESSAGES from '../lang/en';
