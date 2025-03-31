@@ -105,7 +105,13 @@ const MESSAGES = {
         error: "Error",
         count: "Count",
         path: "Path",
-        method: "Method"
+        method: "Method",
+        usage: "Your Endpoint Usage",
+
+        login: "log in",
+        or: "or",
+        register: "register",
+
     }
 
 }

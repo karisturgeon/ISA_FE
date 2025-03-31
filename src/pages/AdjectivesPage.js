@@ -112,83 +112,84 @@ const AdjectivePage = () => {
 
   return (
     <div className="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-light">
-      {loading ? (
-        <Loading />
-      ) : adjectives.length === 0 ? (
-        <div className="alert alert-danger text-center w-75">
-          <h4>{STRINGS.error}</h4>
-          <p>Could not load adjectives. Please try again later.</p>
-          <button className="btn btn-primary mt-3" onClick={() => navigate('/index')}>
-            Go Back
-          </button>
-        </div>
-      ) : (
-        <>
-          <h2>{STRINGS.select}{activity}</h2>
-          <AdjectiveGrid
-            adjectives={adjectives}
-            selectedAdjectives={[primaryAdjective, selectedAdjective].filter(Boolean)}
-            onSelect={handleAdjectiveSelect}
-          />
-          <div className="mt-4 w-75">
-            <h5>{STRINGS.addCustom}</h5>
-            <div className="input-group">
-              <input
-                type="text"
-                className="form-control"
-                placeholder={STRINGS.customPlaceholder}
-                value={customAdjective}
-                onChange={(e) => setCustomAdjective(e.target.value)}
-              />
-              <button
-                className="btn btn-success"
-                onClick={async () => {
-                  if (!customAdjective.trim()) return;
-
-                  setSubmittingCustom(true);
-                  try {
-                    await axios.post(`${API}adjectives`, { word: customAdjective.trim() }, {
-                      withCredentials: true,
-                      headers: { 'Content-Type': 'application/json' }
-                    });
-
-                    // Add new adjective to current list
-                    setAdjectives(prev => [...prev, customAdjective.trim()]);
-                    setCustomAdjective('');
-                  } catch (err) {
-                    console.error("Failed to add adjective:", err);
-                    alert("Could not add adjective. Please try again.");
-                  } finally {
-                    setSubmittingCustom(false);
-                  }
-                }}
-                disabled={submittingCustom || !customAdjective.trim()}
-              >
-                {STRINGS.add}
+      <div className="card w-75">
+        <div className="card-body text-center">
+          {loading ? (
+            <Loading />
+          ) : adjectives.length === 0 ? (
+            <div className="alert alert-danger">
+              <h4>{STRINGS.error}</h4>
+              <p>Could not load adjectives. Please try again later.</p>
+              <button className="btn btn-primary mt-3" onClick={() => navigate('/index')}>
+                Go Back
               </button>
             </div>
-          </div>
-          <div className="btn-group mt-3" role="group">
-            <button
-              className="btn btn-primary"
-              onClick={() => navigate('/activities')}
-            >
-              {STRINGS.back}
-            </button>
-            <button
-              className="btn btn-primary"
-              onClick={handleSubmit}
-              disabled={!primaryAdjective || !selectedAdjective}
-            >
-              {STRINGS.submit}
-            </button>
-          </div>
-        </>
-      )}
+          ) : (
+            <>
+              <h2>{STRINGS.select}{activity}</h2>
+              <AdjectiveGrid
+                adjectives={adjectives}
+                selectedAdjectives={[primaryAdjective, selectedAdjective].filter(Boolean)}
+                onSelect={handleAdjectiveSelect}
+              />
+              <div className="mt-4">
+                <div className="input-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder={STRINGS.addCustom}
+                    value={customAdjective}
+                    onChange={(e) => setCustomAdjective(e.target.value)}
+                  />
+                  <button
+                    className="btn btn-success"
+                    onClick={async () => {
+                      if (!customAdjective.trim()) return;
+  
+                      setSubmittingCustom(true);
+                      try {
+                        await axios.post(`${API}adjectives`, { word: customAdjective.trim() }, {
+                          withCredentials: true,
+                          headers: { 'Content-Type': 'application/json' }
+                        });
+  
+                        setAdjectives(prev => [...prev, customAdjective.trim()]);
+                        setCustomAdjective('');
+                      } catch (err) {
+                        console.error("Failed to add adjective:", err);
+                        alert("Could not add adjective. Please try again.");
+                      } finally {
+                        setSubmittingCustom(false);
+                      }
+                    }}
+                    disabled={submittingCustom || !customAdjective.trim()}
+                  >
+                    {STRINGS.add}
+                  </button>
+                </div>
+              </div>
+              <div className="btn-group mt-4" role="group">
+                <button
+                  className="btn btn-primary"
+                  onClick={() => navigate('/activities')}
+                >
+                  {STRINGS.back}
+                </button>
+                <button
+                  className="btn btn-primary"
+                  onClick={handleSubmit}
+                  disabled={!primaryAdjective || !selectedAdjective}
+                >
+                  {STRINGS.submit}
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
     </div>
-
-
   );
+  
 
 }
 

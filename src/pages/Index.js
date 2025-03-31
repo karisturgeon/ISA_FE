@@ -58,45 +58,52 @@ const Index = () => {
 
   return (
     <div className="min-vh-100 d-flex flex-column align-items-center justify-content-center bg-light">
-    <div className="card-body d-flex flex-column text-center justify-content-center align-content-center">
-    {loading ? (
-  <Loading/>
-    ) :error.message ? (
-    <div className="alert alert-danger">
-      <strong>{STRINGS.error} {error.code}:</strong> {error.message}
-      <p className="mt-3">
-        Please <Link to="/login">log in</Link> or <Link to="/register">register</Link> to continue.
-      </p>
-    </div>
-  ) : (
-    <>
-      <p>{STRINGS.generate}</p>
-      <button onClick={handleSubmit} className="btn btn-primary mb-4">
-        {STRINGS.go}
-      </button>
+      <div className="card-body d-flex flex-column text-center justify-content-center align-content-center">
+        {loading ? (
+          <Loading />
+        ) : error.message ? (
+          <div className="alert alert-danger">
+            <strong>{STRINGS.error} {error.code}:</strong> {error.message}
+            <p>
+              <Link to="/login">{STRINGS.login}</Link> {STRINGS.or} <Link to="/register">{STRINGS.register}</Link>
+            </p>
 
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th>{STRINGS.count}</th>
-            <th>{STRINGS.path}</th>
-            <th>{STRINGS.method}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {endpointHistory.map((item, index) => (
-            <tr key={index}>
-              <td>{item.count}</td>
-              <td>{item.path}</td>
-              <td>{item.method}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </>
-  )}
-</div>
-</div>
+          </div>
+        ) : (
+          <>
+            <div className="card shadow p-4 w-100" style={{ maxWidth: '800px' }}>
+
+              <h1 className="display-4 mb-3">{STRINGS.generate}</h1>
+
+              <button onClick={handleSubmit} className="btn btn-lg btn-success mb-4">
+                {STRINGS.go}
+              </button>
+              <hr></hr>
+              <h2>{STRINGS.usage}</h2>
+              <table className="table table-striped">
+                <thead>
+                  <tr>
+                    <th>{STRINGS.count}</th>
+                    <th>{STRINGS.path}</th>
+                    <th>{STRINGS.method}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {endpointHistory.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.count}</td>
+                      <td>{item.path}</td>
+                      <td>{item.method}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
+
+        )}
+      </div>
+    </div>
 
   )
 
