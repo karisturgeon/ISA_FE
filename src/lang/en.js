@@ -98,10 +98,12 @@ const MESSAGES = {
         noSong: "No Soung Found",
         tryAgain: "Please go back and try again",
         backHome: "Back to Home",
-        genSong: "Generated Song",
+        genSong: "Music Player",
         playing: "Playing: ",
         error: "Your browser does not support the audio element",
-        unknown: "Unknown Song"
+        unknown: "Your Song",
+        audioError: "Could not play the song. Please try another one.",
+        otherSongs: "Or try a song from this curated playlist:"
     },
     UNAUTHORIZED: {
         unauth: "You are not authorized to see this page"
